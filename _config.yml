@@ -2,10 +2,10 @@
 #      Main Configs       #
 # ----------------------- #
 
-url: http://lencioni.github.com
-title: My Octopress Blog
-subtitle: A blogging framework for hackers.
-author: Your Name
+url: http://joelencioni.com
+title: Joe Lencioni
+subtitle: Some things I wrote
+author: Joe Lencioni
 simple_search: http://google.com/search
 description:
 
@@ -85,7 +85,7 @@ delicious_user:
 delicious_count: 3
 
 # Disqus Comments
-disqus_short_name:
+disqus_short_name: lencioni
 disqus_show_comment_count: false
 
 # Google Analytics
