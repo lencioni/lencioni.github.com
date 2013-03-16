@@ -1,2 +1,120 @@
 // This File is imported last, and will override other styles in the cascade
 // Add styles here to make changes without digging in too much
+$border-radius: 3px;
+$shadow-spread: 5px;
+
+body {
+  font-size: 16px;
+  line-height: 1.618;
+}
+
+.inner {
+  max-width: 820px;
+  width: 100%;
+}
+
+hr {
+  background: $color-gray04;
+  border: 0;
+  height: 1px;
+  margin: 2em 0;
+  position: relative;
+
+  &:before {
+    border-bottom: 1px solid $color-gray05;
+    bottom: -1px;
+    content: "";
+    position: absolute;
+    width: 90%;
+  }
+}
+
+article .entry-content {
+  line-height: inherit;
+  text-align: inherit;
+
+  p,
+  blockquote,
+  ul,
+  ol,
+  dl,
+  table,
+  iframe,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .video-container {
+    margin-top: 1em;
+  }
+
+  img.fancy {
+    @include border-radius($border-radius);
+    @include box-shadow(0 0 $shadow-spread rgba(0, 0, 0, .1));
+  }
+
+  blockquote {
+    font-size: smaller;
+  }
+}
+
+article code,
+article pre {
+  @include border-radius($border-radius);
+}
+
+figure.code {
+  @include border-radius($border-radius);
+  background: rgba(0, 0, 0, .04);
+  margin-top: 1em;
+  overflow: auto;
+
+  table {
+    background: 0;
+    margin-top: 0;
+  }
+
+  code,
+  pre {
+    outline: 0;
+  }
+
+  figcaption {
+    font-size: smaller;
+
+    span {
+      @include box-shadow(0 0 $shadow-spread 1px rgba(0, 0, 0, .07));
+      background: rgba(255, 255, 255, .6);
+      border-bottom: 1px solid rgba(0, 0, 0, .2);
+      color: rgba(0, 0, 0, .5);
+      margin-bottom: 5px;
+    }
+  }
+
+  .line-numbers {
+    border-color: rgba(0, 0, 0, .05);
+    color: rgba(0, 0, 0, .2);
+  }
+}
+
+pre code {
+  outline: 0;
+}
+
+.post .meta {
+  font-size: smaller;
+  line-height: inherit;
+
+  .date:before,
+  .tags:before,
+  .comments:before {
+    line-height: 1.25; // vertically align images
+  }
+}
+
+#footer {
+  color: rgba(0, 0, 0, .3);
+  font-size: smaller;
+}
