@@ -2,6 +2,7 @@
 // Add styles here to make changes without digging in too much
 $border-radius: 3px;
 $shadow-spread: 5px;
+$image-line-height: 1.25;
 
 body {
   font-size: 16px;
@@ -60,6 +61,10 @@ article .entry-content {
     font-size: smaller;
     padding: 1.618em;
   }
+
+  .more-link:before {
+    line-height: $image-line-height; // vertically align
+  }
 }
 
 article code,
@@ -112,7 +117,7 @@ pre code {
   .date:before,
   .tags:before,
   .comments:before {
-    line-height: 1.25; // vertically align images
+    line-height: $image-line-height; // vertically align images
   }
 }
 

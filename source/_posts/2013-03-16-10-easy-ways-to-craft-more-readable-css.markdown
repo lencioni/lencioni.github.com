@@ -34,7 +34,7 @@ bugs, and increased developer velocity. When you have finished reading this, I
 hope that you will have a few more tools to help move your codebase toward
 greater maintainability.
 
-<!--- more --->
+<!-- more -->
 
 ## 1. Show Your Work
 
