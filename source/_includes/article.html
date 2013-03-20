@@ -1,3 +1,11 @@
+<div class="meta">
+	<div class="date">{% include post/date.html %}{{ time }}</div>
+	<div class="tags">{% include post/categories.html %}</div>
+	{% if site.disqus_short_name and site.disqus_show_comment_count == true %}
+		<div class="comments"><a href="{{ root_url }}{{ post.url }}{{ page.url }}#disqus_thread">Comments</a></div>
+	{% endif %}
+</div>
+
 {% if index %}
 	<h2 class="title">
 		{% if post.external-url %}
@@ -16,11 +24,3 @@
 	<h2 class="title">{% if site.titlecase %}{{ page.title | titlecase }}{% else %}{{ page.title }}{% endif %}</h2>
 	<div class="entry-content">{{ content }}</div>
 {% endif %}
-
-<div class="meta">
-	<div class="date">{% include post/date.html %}{{ time }}</div>
-	<div class="tags">{% include post/categories.html %}</div>
-	{% if site.disqus_short_name and site.disqus_show_comment_count == true %}
-		<div class="comments"><a href="{{ root_url }}{{ post.url }}{{ page.url }}#disqus_thread">Comments</a></div>
-	{% endif %}
-</div>
