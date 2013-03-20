@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "10 Easy Ways to Craft More Readable CSS"
+title: "10 Easy Ways to Craft <em>More Readable CSS</em>"
 date: 2013-03-16 15:45
 comments: true
 sharing: false
