@@ -19,7 +19,7 @@ Relator, Ideation, and Strategic according to the Clifton StrenghtsFinder.
 
 ## Elsewhere
 
-  - <a href="http://www.linkedin.com/in/lencioni" rel="me">LinkedIn</a>
+  - <a href="https://github.com/lencioni/" rel="me">GitHub</a>
   - <a href="https://plus.google.com/117020586465451320357?rel=author"
     rel="me">Google+</a>
-  - <a href="https://github.com/lencioni/" rel="me">GitHub</a>
+  - <a href="http://www.linkedin.com/in/lencioni" rel="me">LinkedIn</a>
