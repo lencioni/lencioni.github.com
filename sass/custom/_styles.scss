@@ -153,44 +153,6 @@ pre code {
 }
 
 .post {
-  h2.title {
-    font-family: Georgia, serif;
-    font-size: 4.235801032em;
-    font-weight: normal;
-    line-height: 1.25;
-    margin: 0 0 .2em 0;
-
-    @include respond-to(tablet) {
-      font-size: 3em;
-    }
-
-    @include respond-to(mobile) {
-      font-size: 2em;
-    }
-
-    em {
-      display: block;
-      color: #ff5d52;
-      text-align: right;
-
-      @include respond-to(tablet) {
-        display: inline;
-        text-align: left;
-      }
-    }
-  }
-
-  .entry-content {
-    h2 {
-      border: 0;
-      font-size: 1.618em;
-
-      &:before {
-        display: none; // double border
-      }
-    }
-  }
-
   .meta {
     font-style: italic;
     line-height: inherit;
@@ -221,6 +183,46 @@ pre code {
         border: 0;
         padding-left: 0;
       }
+    }
+  }
+}
+
+article,
+.post {
+  h1.title,
+  h2.title {
+    font-family: Georgia, serif;
+    font-size: 4.235801032em;
+    font-weight: normal;
+    line-height: 1.25;
+    margin: 0 0 .2em 0;
+
+    @include respond-to(tablet) {
+      font-size: 3em;
+    }
+
+    @include respond-to(mobile) {
+      font-size: 2em;
+    }
+
+    em {
+      display: block;
+      color: #ff5d52;
+      text-align: right;
+
+      @include respond-to(tablet) {
+        display: inline;
+        text-align: left;
+      }
+    }
+  }
+
+  .entry-content h2 {
+    border: 0;
+    font-size: 1.618em;
+
+    &:before {
+      display: none; // double border
     }
   }
 }
