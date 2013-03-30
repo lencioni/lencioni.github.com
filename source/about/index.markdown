@@ -7,9 +7,8 @@ sharing: false
 footer: true
 ---
 
-I grew up in Minnesota where I spent my first 29 years. Then I moved to
-California where I currently work as a software engineer at
-[Causes](http://www.causes.com).
+I spent my first 29 years in Minnesota. Then I moved to California where I
+currently work as a software engineer at [Causes](http://www.causes.com).
 
 I have an [<abbr title="introversion, intuition, feeling,
 perception">INFP</abbr> personality type](http://en.wikipedia.org/wiki/INFP)
