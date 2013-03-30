@@ -37,6 +37,7 @@ greater maintainability.
 
 <!-- more -->
 
+<a name="show-your-work"></a>
 ## 1. Show Your Work
 
 My math teachers would always require me to show my work. And, for good
@@ -86,6 +87,7 @@ Think of our styles as machines with many parts. If the machine isn’t working
 as we’d like, it will be easier to repair it if we can actually see the moving
 parts.
 
+<a name="two-or-more-use-a-for"></a>
 ## 2. Two or More, Use a For
 
 Spend some time establishing patterns and defining characteristics generally,
@@ -180,6 +182,7 @@ and reused. There may also be occasions where `@extend` makes a lot of sense,
 but [make sure to use it with
 placeholders](http://8gramgorilla.com/mastering-sass-extends-and-placeholders/).
 
+<a name="use-percentages-for-most-widths"></a>
 ## 3. Use Percentages for (Most) Widths
 
 Have you ever beautifully styled an element, only to come back a few months
@@ -286,6 +289,7 @@ percentage.
 }
 ```
 
+<a name="express-intention"></a>
 ## 4. Express Intention
 
 At the core of the previous tips is this: write styles that most closely and
@@ -346,6 +350,7 @@ meaning of the content, and not how it happens to appear. For instance,
 start using media queries to reflow major elements or decide that your local
 navigation should be on the right side one day.
 
+<a name="be-less-specific"></a>
 ## 5. Be Less Specific
 
 Ideally, styles behave consistently across your site. Behavioral consistency
@@ -372,6 +377,7 @@ styling problems are actually markup problems in disguise, and solving these
 types of problems on the CSS side means you now have two problems. Sometimes a
 little markup simplification can go a long way toward fixing a styling issue.
 
+<a name="love-the-cascade"></a>
 ## 6. Love the Cascade
 
 Reset stylesheets, such as [Eric Meyer’s Reset
@@ -402,6 +408,7 @@ difficult to use these general elements in new contexts, and ends up requiring
 more complicated overrides that lead to styles with confusing purposes and
 tangly interdependencies.
 
+<a name="leave-a-comment"></a>
 ## 7. Leave a Comment
 
 Occasionally, it is not possible to write intention-expressing styles or invent
@@ -436,6 +443,7 @@ Standard CSS can still use block-style comments:
 width: auto !important; /* override inline style from JS */
 ```
 
+<a name="maintain-order"></a>
 ## 8. Maintain Order
 
 Similar to structuring our <abbr title="Document Object Model">DOM</abbr> with
@@ -484,6 +492,7 @@ gzipped](https://developers.google.com/speed/docs/best-practices/payload#GzipCom
 Many modern code editors provide a sorting functionality, which makes
 alphabetizing styles a snap. (In Vim command mode I type `vi{:sort`.)
 
+<a name="use-whitespace-effectively"></a>
 ## 9. Use Whitespace Effectively
 
 Whitespace allows us to more clearly see where one selector set ends and
@@ -498,6 +507,7 @@ of the same indentation level, and give each selector its own line. These
 coding styles not only improve readability of the styles on the filesystem,
 they also simplify diffs which eases code review and merge conflict resolution.
 
+<a name="enforce-coding-style"></a>
 ## 10. Enforce Coding Style
 
 Maintaining a readable codebase can be challenging if not everyone on your team
