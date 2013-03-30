@@ -23,7 +23,7 @@ violent psychopath who knows where you live. Code for readability.
 </head>
 
 <body>
-	<header id="header" class="inner"><h1><a href="/">Joe Lencioni</a></h1>
+	<header id="header" class="inner"><div id="site-title"><a href="/">Joe Lencioni</a></div>
 <nav id="main-nav"><ul class="main">
   <li><a href="/">Blog</a></li>
   <li><a href="/about/">About</a></li>
@@ -100,7 +100,7 @@ violent psychopath who knows where you live. Code for readability.
 </div>
 
 
-	<h2 class="title">10 Easy Ways to Craft <em>More Readable CSS</em></h2>
+	<h1 class="title">10 Easy Ways to Craft <em>More Readable CSS</em></h1>
 	<div class="entry-content"><blockquote><p>Always code as if the [person] who ends up maintaining your code will be a
 violent psychopath who knows where you live. Code for readability.
 —<cite><a href="https://groups.google.com/d/msg/comp.lang.c++/rYCO5yn4lXw/oITtSkZOtoUJ">John Woods</a></cite></p></blockquote>
@@ -126,6 +126,8 @@ greater maintainability.</p>
 
 <!-- more -->
 
+
+<p><a name="show-your-work"></a></p>
 
 <h2>1. Show Your Work</h2>
 
@@ -179,6 +181,8 @@ informed decision as to how to modify it.</p>
 <p>Think of our styles as machines with many parts. If the machine isn’t working
 as we’d like, it will be easier to repair it if we can actually see the moving
 parts.</p>
+
+<p><a name="two-or-more-use-a-for"></a></p>
 
 <h2>2. Two or More, Use a For</h2>
 
@@ -306,6 +310,8 @@ generating too many styles. Always consider how your styles can be generalized
 and reused. There may also be occasions where <code>@extend</code> makes a lot of sense,
 but <a href="http://8gramgorilla.com/mastering-sass-extends-and-placeholders/">make sure to use it with
 placeholders</a>.</p>
+
+<p><a name="use-percentages-for-most-widths"></a></p>
 
 <h2>3. Use Percentages for (Most) Widths</h2>
 
@@ -470,6 +476,8 @@ percentage.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
+<p><a name="express-intention"></a></p>
+
 <h2>4. Express Intention</h2>
 
 <p>At the core of the previous tips is this: write styles that most closely and
@@ -552,6 +560,8 @@ meaning of the content, and not how it happens to appear. For instance,
 start using media queries to reflow major elements or decide that your local
 navigation should be on the right side one day.</p>
 
+<p><a name="be-less-specific"></a></p>
+
 <h2>5. Be Less Specific</h2>
 
 <p>Ideally, styles behave consistently across your site. Behavioral consistency
@@ -577,6 +587,8 @@ possible. Just keep things simple.</p>
 styling problems are actually markup problems in disguise, and solving these
 types of problems on the CSS side means you now have two problems. Sometimes a
 little markup simplification can go a long way toward fixing a styling issue.</p>
+
+<p><a name="love-the-cascade"></a></p>
 
 <h2>6. Love the Cascade</h2>
 
@@ -607,6 +619,8 @@ background color or font size. This messes up a sane style reset, makes it
 difficult to use these general elements in new contexts, and ends up requiring
 more complicated overrides that lead to styles with confusing purposes and
 tangly interdependencies.</p>
+
+<p><a name="leave-a-comment"></a></p>
 
 <h2>7. Leave a Comment</h2>
 
@@ -643,6 +657,8 @@ stay attached to the style they reference. Sass provides one-line comments:</p>
 </pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nt">width</span><span class="o">:</span> <span class="nt">auto</span> <span class="o">!</span><span class="nt">important</span><span class="o">;</span> <span class="c">/* override inline style from JS */</span>
 </span></code></pre></td></tr></table></div></figure>
 
+
+<p><a name="maintain-order"></a></p>
 
 <h2>8. Maintain Order</h2>
 
@@ -715,6 +731,8 @@ gzipped</a>.
 Many modern code editors provide a sorting functionality, which makes
 alphabetizing styles a snap. (In Vim command mode I type <code>vi{:sort</code>.)</p>
 
+<p><a name="use-whitespace-effectively"></a></p>
+
 <h2>9. Use Whitespace Effectively</h2>
 
 <p>Whitespace allows us to more clearly see where one selector set ends and
@@ -728,6 +746,8 @@ for blank lines in your code.</p>
 of the same indentation level, and give each selector its own line. These
 coding styles not only improve readability of the styles on the filesystem,
 they also simplify diffs which eases code review and merge conflict resolution.</p>
+
+<p><a name="enforce-coding-style"></a></p>
 
 <h2>10. Enforce Coding Style</h2>
 
