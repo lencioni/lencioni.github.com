@@ -4,7 +4,7 @@
   <title><![CDATA[Joe Lencioni]]></title>
   <link href="http://joelencioni.com/atom.xml" rel="self"/>
   <link href="http://joelencioni.com/"/>
-  <updated>2013-03-30T15:25:26-07:00</updated>
+  <updated>2013-05-28T16:30:03-07:00</updated>
   <id>http://joelencioni.com/</id>
   <author>
     <name><![CDATA[Joe Lencioni]]></name>
@@ -12,6 +12,138 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Working with <em>Asynchronously Loaded JavaScript Objects</em>]]></title>
+    <link href="http://joelencioni.com/blog/2013/05/28/working-with-asynchronously-loaded-javascript-objects/"/>
+    <updated>2013-05-28T14:00:00-07:00</updated>
+    <id>http://joelencioni.com/blog/2013/05/28/working-with-asynchronously-loaded-javascript-objects</id>
+    <content type="html"><![CDATA[<p>Telling browsers to load large JavaScripts asynchronously can significantly
+improve performance. This prevents the browser from blocking the rendering of
+the page, allowing it to be viewed more quickly. However, if you are loading
+dependent files asynchronously, such as a third-party service&#8217;s API, making the
+scripts work together is not automatic.</p>
+
+<p>At <a href="http://www.causes.com">Causes</a> we use Facebook&#8217;s large (nearly 60 <abbr
+title="Kibibytes">KiB</abbr> gzipped) JavaScript API on our pages. Although
+<a href="https://developers.facebook.com/docs/javascript/gettingstarted/#loading">they recommend loading it
+asynchronously</a>,
+we were already putting our JavaScript at the bottom of the page and weren&#8217;t
+convinced that async would give us much additional benefit. However, after some
+non-scientific performance tests it appeared that switching to asynchronously
+loading the Facebook API could reduce the time to <code>DOMContentLoaded</code> by nearly
+a full second on our pages.</p>
+
+<!-- more -->
+
+
+<p>After the Facebook API has been loaded asynchronously, it executes
+<code>window.fbAsyncInit</code>, which is where  <a href="https://developers.facebook.com/docs/reference/javascript/#loading">they
+suggest</a>
+placing code that depends on the <code>FB</code>.</p>
+
+<p>The trouble is, we wanted our JavaScript that interacts with the Facebook API
+to continue to work even though it is dispersed throughout our scripts, and it
+may execute before the API was available.</p>
+
+<p>The <a href="http://stackoverflow.com/questions/3548493/how-to-detect-when-facebooks-fb-init-is-complete">answers on
+StackOverflow</a>
+may work, but they feel inelegant. For instance, <a href="http://stackoverflow.com/a/3549043/18986">one
+answer</a> addresses this problem by
+setting a flag to true in the <code>fbAsyncInit</code> callback, and creates a
+<code>fbEnsureInit</code> method that uses a recursive timeout to poll the flag.</p>
+
+<p>We decided to take a different approach. Thankfully, the Facebook API sets up a
+single object, <code>FB</code>, for developers to interact with.</p>
+
+<p>So we developed a class, <code>MethodProxy</code>, to act as a proxy between the rest of
+our code and the <code>FB</code> object. It accepts an object to forward calls onto, and
+it masquerades as an Array by implementing a <code>push</code> method. The <code>push</code> method
+accepts a single argument of a array whose first position is always a string of
+the method name on the <code>FB</code> object to be executed, followed by as many
+arguments to be given to that method.</p>
+
+<figure class='code'><figcaption><span>MethodProxy.push()</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// payload : [&#39;methodName&#39;, arguments*]</span>
+</span><span class='line'><span class="k">this</span><span class="p">.</span><span class="nx">push</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">forward</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">payload</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">methodName</span> <span class="o">=</span> <span class="nx">payload</span><span class="p">.</span><span class="nx">shift</span><span class="p">().</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">),</span>
+</span><span class='line'>      <span class="nx">object</span>     <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">object</span><span class="p">,</span>
+</span><span class='line'>      <span class="nx">method</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">while</span> <span class="p">(</span><span class="nx">methodName</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">// dig into the object as many levels as needed (e.g. `FB.XFBML.parse`)</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">method</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">object</span> <span class="o">=</span> <span class="nx">object</span><span class="p">[</span><span class="nx">method</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="nx">method</span> <span class="o">=</span> <span class="nx">methodName</span><span class="p">.</span><span class="nx">shift</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">return</span> <span class="nx">object</span><span class="p">[</span><span class="nx">method</span><span class="p">].</span><span class="nx">apply</span><span class="p">(</span><span class="nx">object</span><span class="p">,</span> <span class="nx">payload</span><span class="p">);</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This allows us to initialize a native Array when the page loads to collect
+calls to Facebook&#8217;s API. Then, in the <code>fbAsyncInit</code> callback, we Indiana Jones
+style swap out the native array with an instantiation of our <code>MethodProxy</code>
+object, which then consumes the queued events by executing them on the <code>FB</code>
+object. The end result is a consistent API for our code to use regardless of
+the state of Facebook&#8217;s asynchronously loaded API.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">MyFB</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">MyFB</span> <span class="o">||</span> <span class="p">[];</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">MyFB</span><span class="p">.</span><span class="nx">push</span><span class="p">([</span><span class="s1">&#39;ui&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}]);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">window</span><span class="p">.</span><span class="nx">fbAsyncInit</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">FB</span><span class="p">.</span><span class="nx">init</span><span class="p">({</span>
+</span><span class='line'>    <span class="p">...</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">MyFB</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MethodProxy</span><span class="p">(</span><span class="nx">FB</span><span class="p">,</span> <span class="nx">MyFB</span><span class="p">);</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">MyFB</span><span class="p">.</span><span class="nx">push</span><span class="p">([</span><span class="s1">&#39;FBML.parse&#39;</span><span class="p">,</span> <span class="p">...]);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>MethodProxy</code> is general enough to be used for other similar cases so we&#8217;ve
+released it as <a href="https://github.com/causes/method-proxy-js">method-proxy-js, an open source
+project</a>. Pull requests welcome.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Show Colors from Sass Variables]]></title>
+    <link href="http://joelencioni.com/blog/2013/05/16/show-colors-from-sass-variables/"/>
+    <updated>2013-05-16T15:48:00-07:00</updated>
+    <id>http://joelencioni.com/blog/2013/05/16/show-colors-from-sass-variables</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[10 Easy Ways to Craft <em>More Readable CSS</em>]]></title>

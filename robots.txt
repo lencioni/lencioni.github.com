@@ -1,4 +1,4 @@
 User-agent: *
-Disallow: 
+Disallow:
 
-Sitemap: http://joelencioni.com/sitemap.xml 
+Sitemap: http://joelencioni.com/sitemap.xml

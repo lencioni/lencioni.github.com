@@ -30,7 +30,7 @@
 				tweet = new Date(date),
 				diff = (((current.getTime() + (1 * 60000)) - tweet.getTime()) / 1000),
 				day_diff = Math.floor(diff / 86400);
-			
+
 			if (day_diff == 0){
 				if (diff < 60) return unit.now;
 				else if (diff < 120) return unit.minute;
