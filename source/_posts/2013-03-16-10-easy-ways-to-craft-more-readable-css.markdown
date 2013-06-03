@@ -542,5 +542,5 @@ outcome; some are more coherent than others.
 [14]: http://en.wikipedia.org/wiki/Principle_of_least_astonishment
 [15]: https://developers.google.com/speed/docs/best-practices/payload#GzipCompression
 [16]: https://github.com/causes/scss-lint
-[17]: https://github.com/causes/git_hooks
+[17]: https://github.com/causes/overcommit
 [18]: http://editorconfig.org
