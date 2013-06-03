@@ -14,7 +14,7 @@ categories:
 
 > Always code as if the [person] who ends up maintaining your code will be a
 > violent psychopath who knows where you live. Code for readability.
-> —<cite>[John Woods](https://groups.google.com/d/msg/comp.lang.c++/rYCO5yn4lXw/oITtSkZOtoUJ)</cite>
+> —<cite>[John Woods][0]</cite>
 
 Diving into a large, old piece of CSS typically is neither easy nor
 pleasurable. I find that **the biggest challenges in working with old CSS often
@@ -29,11 +29,11 @@ stylesheets can be dangerous, tedious, and cumbersome. Therefore, it is
 important to communicate enough context so that future developers will be able
 to grok the code easily and make informed decisions.
 
-At [Causes](http://www.causes.com/), we have adopted the following practices
-which we believe have improved the maintainability of our stylesheets, reduced
-bugs, and increased developer velocity. When you have finished reading this, I
-hope that you will have a few more tools to help move your codebase toward
-greater maintainability.
+At [Causes][1], we have adopted the following practices which we believe have
+improved the maintainability of our stylesheets, reduced bugs, and increased
+developer velocity. When you have finished reading this, I hope that you will
+have a few more tools to help move your codebase toward greater
+maintainability.
 
 <!-- more -->
 
@@ -49,10 +49,8 @@ was done.
 
 Similarly, styles that show the work behind mysterious numbers communicate more
 context, making them more readable and maintainable. We can easily apply this
-when using a relative unit like
-[ems](http://en.wikipedia.org/wiki/Em_(typography\)), where we determine the
-value by taking the target size in pixels divided by the context size in
-pixels:
+when using a relative unit like [ems][2], where we determine the value by
+taking the target size in pixels divided by the context size in pixels:
 
     ems = target px / context px
 
@@ -66,8 +64,8 @@ font-size: .625em;
 
 However, if someone were to come along a few weeks later and see this strange
 number, they might be confused about its exact meaning. Using a CSS
-preprocessor such as [Sass](http://sass-lang.com/), we can use a little math to
-show our work and communicate more context:
+preprocessor such as [Sass][3], we can use a little math to show our work and
+communicate more context:
 
 ``` scss Readable ems with Sass math
 font-size: (10px / 16px) * 1em;
@@ -95,14 +93,11 @@ to promote reusability. This can be accomplished through setting up
 presentational classes that can be mixed and matched to achieve a unified
 visual appearance. It might be a good idea to set up a library of these
 patterns that you can share with your team or start with a good framework like
-[Typeplate](http://typeplate.com/) or
-[Bootstrap](http://twitter.github.com/bootstrap/) that kickstart this process
-for us.
+[Typeplate][4] or [Bootstrap][5] that kickstart this process for us.
 
 With a CSS preprocessor like Sass, we have some very useful tools that allow us
-to kick this up a notch, more easily take a
-[DRY](http://en.wikipedia.org/wiki/Don%27t_repeat_yourself) approach to CSS,
-and do more with less code.
+to kick this up a notch, more easily take a [DRY][6] approach to CSS, and do
+more with less code.
 
 **Dispel magic numbers with variables.** Similar to showing our work, instead
 of leaving a hex color like `#00c5cd` for somebody to grok, naming it
@@ -110,10 +105,9 @@ of leaving a hex color like `#00c5cd` for somebody to grok, naming it
 reusability of variables is just the icing on the cake.
 
 **Perform common calculations with functions.** [Sass has a bunch of built-in
-functions](http://sass-lang.com/docs/yardoc/Sass/Script/Functions.html) that
-can make our lives easier. To fill in the gaps, Sass allows us to define our
-own functions. For example, at Causes we added a Sass function that facilitates
-calculations of ems:
+functions][7] that can make our lives easier. To fill in the gaps, Sass allows
+us to define our own functions. For example, at Causes we added a Sass function
+that facilitates calculations of ems:
 
 ``` scss Defining functions in Sass http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#function_directives
 @function calc-em($target-px, $context-px) {
@@ -126,9 +120,8 @@ h1 {
 ```
 
 **Use mixins and loops to abstract out common patterns.** Packages like
-[Compass](http://compass-style.org/) and [Bourbon](http://bourbon.io/) give us
-a lot of mixins right out of the box that make cross-browser compatibility a
-breeze. So, instead of this mess:
+[Compass][8] and [Bourbon][9] give us a lot of mixins right out of the box that
+make cross-browser compatibility a breeze. So, instead of this mess:
 
 ``` css Vendor-prefixed CSS transitions
 -moz-transition: all 0.8s ease-in-out;
@@ -179,8 +172,7 @@ h1 {
 However, mixins and loops are a double-edged sword that can easily result in
 generating too many styles. Always consider how your styles can be generalized
 and reused. There may also be occasions where `@extend` makes a lot of sense,
-but [make sure to use it with
-placeholders](http://8gramgorilla.com/mastering-sass-extends-and-placeholders/).
+but [make sure to use it with placeholders][10].
 
 <a name="use-percentages-for-most-widths"></a>
 ## 3. Use Percentages for (Most) Widths
@@ -358,12 +350,10 @@ allows developers to quickly and easily understand the fundamentals of your
 classes and apply them confidently in new situations.
 
 One way to achieve this consistency is by defaulting to [less-specific
-selectors](http://www.stuffandnonsense.co.uk/archives/css_specificity_wars.html)—write
-shorter selector chains, or if using Sass use minimal nesting. Less-specific
-selectors allow you to define general style patterns that are easier to reuse,
-override where necessary, and may be more performant. Qualifying an ID with any
-preceding selectors is a big [code
-smell](http://en.wikipedia.org/wiki/Code_smell).
+selectors][11]—write shorter selector chains, or if using Sass use minimal
+nesting. Less-specific selectors allow you to define general style patterns
+that are easier to reuse, override where necessary, and may be more performant.
+Qualifying an ID with any preceding selectors is a big [code smell][12].
 
 This means that we should tend to prefer classes over IDs and avoid
 `!important`. Strive for a flatter structure—the worst I’ve seen is a
@@ -380,15 +370,14 @@ little markup simplification can go a long way toward fixing a styling issue.
 <a name="love-the-cascade"></a>
 ## 6. Love the Cascade
 
-Reset stylesheets, such as [Eric Meyer’s Reset
-CSS](http://meyerweb.com/eric/tools/css/reset/), can be good because they
-cancel out all default styles, putting all elements at a common starting-point.
-However, it is important to define good base styles for typographical elements
-(e.g. `h1`, `h2`, `h3`, `ul`, `ol`) on top of the defaults so your site can
-have some consistency and you avoid repetition. When styling an element, ask
-yourself how many of those styles can be applied globally, and when writing a
-style that overrides another, ask yourself if your style override can be
-implemented more generally or moved up the chain.
+Reset stylesheets, such as [Eric Meyer’s Reset CSS][13], can be good because
+they cancel out all default styles, putting all elements at a common
+starting-point.  However, it is important to define good base styles for
+typographical elements (e.g. `h1`, `h2`, `h3`, `ul`, `ol`) on top of the
+defaults so your site can have some consistency and you avoid repetition. When
+styling an element, ask yourself how many of those styles can be applied
+globally, and when writing a style that overrides another, ask yourself if your
+style override can be implemented more generally or moved up the chain.
 
 At Causes, we were using a reset stylesheet but had failed to set up some
 general, global styles. As a result, each time we wanted to use a new heading
@@ -420,15 +409,13 @@ I find myself in this situation, I leave a little comment to help explain my
 intention.
 
 For instance, although !important is best avoided because it violates the
-[principle of least
-astonishment](http://en.wikipedia.org/wiki/Principle_of_least_astonishment) and
-is difficult to override, sometimes it is necessary such as when overriding an
-inline style that was added via JavaScript that you don’t have control over.
-Whenever you use `!important`, leave a comment explaining why it is important.
-This helps prevent a future, well-intentioned developer from coming along and
-“fixing” your code. Bonus points for leaving findable keywords in comments,
-which help people identify and remove unusual styles as they are no longer
-needed.
+[principle of least astonishment][14] and is difficult to override, sometimes
+it is necessary such as when overriding an inline style that was added via
+JavaScript that you don’t have control over.  Whenever you use `!important`,
+leave a comment explaining why it is important.  This helps prevent a future,
+well-intentioned developer from coming along and “fixing” your code. Bonus
+points for leaving findable keywords in comments, which help people identify
+and remove unusual styles as they are no longer needed.
 
 I typically prefer same-line comments for this purpose because they more easily
 stay attached to the style they reference. Sass provides one-line comments:
@@ -487,10 +474,9 @@ title="Obsessive-compulsive disorder">OCD</abbr>, alphabetizing helps us
 easily spot duplicates and assists developers in finding the properties they
 want to modify, thanks to a standard ordering. As a side-benefit, according to
 Google, [properties that consistently appear in the same order will compress
-better when
-gzipped](https://developers.google.com/speed/docs/best-practices/payload#GzipCompression).
-Many modern code editors provide a sorting functionality, which makes
-alphabetizing styles a snap. (In Vim command mode I type `vi{:sort`.)
+better when gzipped][15].  Many modern code editors provide a sorting
+functionality, which makes alphabetizing styles a snap. (In Vim command mode I
+type `vi{:sort`.)
 
 <a name="use-whitespace-effectively"></a>
 ## 9. Use Whitespace Effectively
@@ -516,12 +502,11 @@ persist throughout our codebase, we lean heavily on **automated linting** and
 **code review**.
 
 A linter serves as a low-cost first pass to catch most of the basic issues. At
-Causes, we are developing a [SCSS linter](https://github.com/causes/scss-lint)
-(pull requests welcome) that runs as one of our [Git pre-commit
-hooks](https://github.com/causes/git_hooks). We have trained this linter to
+Causes, we are developing a [SCSS linter][16] (pull requests welcome) that runs
+as one of our [Git pre-commit hooks][17]. We have trained this linter to
 enforce basic coding styles such as using one line per selector and
-alphabetizing properties. Also, a tool like
-[EditorConfig](http://editorconfig.org/) might be worth taking for a spin.
+alphabetizing properties. Also, a tool like [EditorConfig][18] might be worth
+taking for a spin.
 
 For problems that are more nuanced and difficult to detect through static
 analysis, such as how well a set of styles expresses the intention of the
@@ -539,3 +524,23 @@ strong and sustainable foundation for your stylesheets.
 
 CSS is like storytelling. There are often many ways to achieve a desired
 outcome; some are more coherent than others.
+
+[0]: https://groups.google.com/d/msg/comp.lang.c++/rYCO5yn4lXw/oITtSkZOtoUJ
+[1]: http://www.causes.com
+[2]: http://en.wikipedia.org/wiki/Em_(typography\)
+[3]: http://sass-lang.com
+[4]: http://typeplate.com
+[5]: http://twitter.github.com/bootstrap/
+[6]: http://en.wikipedia.org/wiki/Don%27t_repeat_yourself
+[7]: http://sass-lang.com/docs/yardoc/Sass/Script/Functions.html
+[8]: http://compass-style.org
+[9]: http://bourbon.io
+[10]: http://8gramgorilla.com/mastering-sass-extends-and-placeholders/
+[11]: http://www.stuffandnonsense.co.uk/archives/css_specificity_wars.html
+[12]: http://en.wikipedia.org/wiki/Code_smell
+[13]: http://meyerweb.com/eric/tools/css/reset/
+[14]: http://en.wikipedia.org/wiki/Principle_of_least_astonishment
+[15]: https://developers.google.com/speed/docs/best-practices/payload#GzipCompression
+[16]: https://github.com/causes/scss-lint
+[17]: https://github.com/causes/git_hooks
+[18]: http://editorconfig.org
