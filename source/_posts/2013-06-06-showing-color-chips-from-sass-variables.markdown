@@ -4,7 +4,6 @@ title: "Showing Color Chips <em>from Sass Variables</em>"
 date: 2013-06-06 14:00:00
 comments: true
 sharing: false
-published: false
 categories:
   - Causes
   - Sass
