@@ -118,11 +118,11 @@ stylesheets can be dangerous, tedious, and cumbersome. Therefore, it is
 important to communicate enough context so that future developers will be able
 to grok the code easily and make informed decisions.</p>
 
-<p>At <a href="http://www.causes.com/">Causes</a>, we have adopted the following practices
-which we believe have improved the maintainability of our stylesheets, reduced
-bugs, and increased developer velocity. When you have finished reading this, I
-hope that you will have a few more tools to help move your codebase toward
-greater maintainability.</p>
+<p>At <a href="http://www.causes.com">Causes</a>, we have adopted the following practices which we believe have
+improved the maintainability of our stylesheets, reduced bugs, and increased
+developer velocity. When you have finished reading this, I hope that you will
+have a few more tools to help move your codebase toward greater
+maintainability.</p>
 
 <!-- more -->
 
@@ -140,10 +140,8 @@ was done.</p>
 
 <p>Similarly, styles that show the work behind mysterious numbers communicate more
 context, making them more readable and maintainable. We can easily apply this
-when using a relative unit like
-<a href="http://en.wikipedia.org/wiki/Em_(typography)">ems</a>, where we determine the
-value by taking the target size in pixels divided by the context size in
-pixels:</p>
+when using a relative unit like <a href="http://en.wikipedia.org/wiki/Em_(typography)">ems</a>, where we determine the value by
+taking the target size in pixels divided by the context size in pixels:</p>
 
 <pre><code>ems = target px / context px
 </code></pre>
@@ -159,8 +157,8 @@ would be to run through the equation above and simply drop in the result:</p>
 
 <p>However, if someone were to come along a few weeks later and see this strange
 number, they might be confused about its exact meaning. Using a CSS
-preprocessor such as <a href="http://sass-lang.com/">Sass</a>, we can use a little math to
-show our work and communicate more context:</p>
+preprocessor such as <a href="http://sass-lang.com">Sass</a>, we can use a little math to show our work and
+communicate more context:</p>
 
 <figure class='code'><figcaption><span>Readable ems with Sass math</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='scss'><span class='line'><span class="na">font-size</span><span class="o">:</span> <span class="p">(</span><span class="mi">10</span><span class="kt">px</span> <span class="o">/</span> <span class="mi">16</span><span class="kt">px</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1</span><span class="kt">em</span><span class="p">;</span>
@@ -191,14 +189,11 @@ to promote reusability. This can be accomplished through setting up
 presentational classes that can be mixed and matched to achieve a unified
 visual appearance. It might be a good idea to set up a library of these
 patterns that you can share with your team or start with a good framework like
-<a href="http://typeplate.com/">Typeplate</a> or
-<a href="http://twitter.github.com/bootstrap/">Bootstrap</a> that kickstart this process
-for us.</p>
+<a href="http://typeplate.com">Typeplate</a> or <a href="http://twitter.github.com/bootstrap/">Bootstrap</a> that kickstart this process for us.</p>
 
 <p>With a CSS preprocessor like Sass, we have some very useful tools that allow us
-to kick this up a notch, more easily take a
-<a href="http://en.wikipedia.org/wiki/Don%27t_repeat_yourself">DRY</a> approach to CSS,
-and do more with less code.</p>
+to kick this up a notch, more easily take a <a href="http://en.wikipedia.org/wiki/Don%27t_repeat_yourself">DRY</a> approach to CSS, and do
+more with less code.</p>
 
 <p><strong>Dispel magic numbers with variables.</strong> Similar to showing our work, instead
 of leaving a hex color like <code>#00c5cd</code> for somebody to grok, naming it
@@ -206,10 +201,9 @@ of leaving a hex color like <code>#00c5cd</code> for somebody to grok, naming it
 reusability of variables is just the icing on the cake.</p>
 
 <p><strong>Perform common calculations with functions.</strong> <a href="http://sass-lang.com/docs/yardoc/Sass/Script/Functions.html">Sass has a bunch of built-in
-functions</a> that
-can make our lives easier. To fill in the gaps, Sass allows us to define our
-own functions. For example, at Causes we added a Sass function that facilitates
-calculations of ems:</p>
+functions</a> that can make our lives easier. To fill in the gaps, Sass allows
+us to define our own functions. For example, at Causes we added a Sass function
+that facilitates calculations of ems:</p>
 
 <figure class='code'><figcaption><span>Defining functions in Sass</span><a href='http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#function_directives'>link</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -229,9 +223,8 @@ calculations of ems:</p>
 
 
 <p><strong>Use mixins and loops to abstract out common patterns.</strong> Packages like
-<a href="http://compass-style.org/">Compass</a> and <a href="http://bourbon.io/">Bourbon</a> give us
-a lot of mixins right out of the box that make cross-browser compatibility a
-breeze. So, instead of this mess:</p>
+<a href="http://compass-style.org">Compass</a> and <a href="http://bourbon.io">Bourbon</a> give us a lot of mixins right out of the box that
+make cross-browser compatibility a breeze. So, instead of this mess:</p>
 
 <figure class='code'><figcaption><span>Vendor-prefixed CSS transitions</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -308,8 +301,7 @@ readability, and reduce repetition:</p>
 <p>However, mixins and loops are a double-edged sword that can easily result in
 generating too many styles. Always consider how your styles can be generalized
 and reused. There may also be occasions where <code>@extend</code> makes a lot of sense,
-but <a href="http://8gramgorilla.com/mastering-sass-extends-and-placeholders/">make sure to use it with
-placeholders</a>.</p>
+but <a href="http://8gramgorilla.com/mastering-sass-extends-and-placeholders/">make sure to use it with placeholders</a>.</p>
 
 <p><a name="use-percentages-for-most-widths"></a></p>
 
@@ -569,12 +561,10 @@ allows developers to quickly and easily understand the fundamentals of your
 classes and apply them confidently in new situations.</p>
 
 <p>One way to achieve this consistency is by defaulting to <a href="http://www.stuffandnonsense.co.uk/archives/css_specificity_wars.html">less-specific
-selectors</a>—write
-shorter selector chains, or if using Sass use minimal nesting. Less-specific
-selectors allow you to define general style patterns that are easier to reuse,
-override where necessary, and may be more performant. Qualifying an ID with any
-preceding selectors is a big <a href="http://en.wikipedia.org/wiki/Code_smell">code
-smell</a>.</p>
+selectors</a>—write shorter selector chains, or if using Sass use minimal
+nesting. Less-specific selectors allow you to define general style patterns
+that are easier to reuse, override where necessary, and may be more performant.
+Qualifying an ID with any preceding selectors is a big <a href="http://en.wikipedia.org/wiki/Code_smell">code smell</a>.</p>
 
 <p>This means that we should tend to prefer classes over IDs and avoid
 <code>!important</code>. Strive for a flatter structure—the worst I’ve seen is a
@@ -592,15 +582,14 @@ little markup simplification can go a long way toward fixing a styling issue.</p
 
 <h2>6. Love the Cascade</h2>
 
-<p>Reset stylesheets, such as <a href="http://meyerweb.com/eric/tools/css/reset/">Eric Meyer’s Reset
-CSS</a>, can be good because they
-cancel out all default styles, putting all elements at a common starting-point.
-However, it is important to define good base styles for typographical elements
-(e.g. <code>h1</code>, <code>h2</code>, <code>h3</code>, <code>ul</code>, <code>ol</code>) on top of the defaults so your site can
-have some consistency and you avoid repetition. When styling an element, ask
-yourself how many of those styles can be applied globally, and when writing a
-style that overrides another, ask yourself if your style override can be
-implemented more generally or moved up the chain.</p>
+<p>Reset stylesheets, such as <a href="http://meyerweb.com/eric/tools/css/reset/">Eric Meyer’s Reset CSS</a>, can be good because
+they cancel out all default styles, putting all elements at a common
+starting-point.  However, it is important to define good base styles for
+typographical elements (e.g. <code>h1</code>, <code>h2</code>, <code>h3</code>, <code>ul</code>, <code>ol</code>) on top of the
+defaults so your site can have some consistency and you avoid repetition. When
+styling an element, ask yourself how many of those styles can be applied
+globally, and when writing a style that overrides another, ask yourself if your
+style override can be implemented more generally or moved up the chain.</p>
 
 <p>At Causes, we were using a reset stylesheet but had failed to set up some
 general, global styles. As a result, each time we wanted to use a new heading
@@ -633,15 +622,13 @@ I find myself in this situation, I leave a little comment to help explain my
 intention.</p>
 
 <p>For instance, although !important is best avoided because it violates the
-<a href="http://en.wikipedia.org/wiki/Principle_of_least_astonishment">principle of least
-astonishment</a> and
-is difficult to override, sometimes it is necessary such as when overriding an
-inline style that was added via JavaScript that you don’t have control over.
-Whenever you use <code>!important</code>, leave a comment explaining why it is important.
-This helps prevent a future, well-intentioned developer from coming along and
-“fixing” your code. Bonus points for leaving findable keywords in comments,
-which help people identify and remove unusual styles as they are no longer
-needed.</p>
+<a href="http://en.wikipedia.org/wiki/Principle_of_least_astonishment">principle of least astonishment</a> and is difficult to override, sometimes
+it is necessary such as when overriding an inline style that was added via
+JavaScript that you don’t have control over.  Whenever you use <code>!important</code>,
+leave a comment explaining why it is important.  This helps prevent a future,
+well-intentioned developer from coming along and “fixing” your code. Bonus
+points for leaving findable keywords in comments, which help people identify
+and remove unusual styles as they are no longer needed.</p>
 
 <p>I typically prefer same-line comments for this purpose because they more easily
 stay attached to the style they reference. Sass provides one-line comments:</p>
@@ -726,10 +713,9 @@ title="Obsessive-compulsive disorder">OCD</abbr>, alphabetizing helps us
 easily spot duplicates and assists developers in finding the properties they
 want to modify, thanks to a standard ordering. As a side-benefit, according to
 Google, <a href="https://developers.google.com/speed/docs/best-practices/payload#GzipCompression">properties that consistently appear in the same order will compress
-better when
-gzipped</a>.
-Many modern code editors provide a sorting functionality, which makes
-alphabetizing styles a snap. (In Vim command mode I type <code>vi{:sort</code>.)</p>
+better when gzipped</a>.  Many modern code editors provide a sorting
+functionality, which makes alphabetizing styles a snap. (In Vim command mode I
+type <code>vi{:sort</code>.)</p>
 
 <p><a name="use-whitespace-effectively"></a></p>
 
@@ -757,12 +743,11 @@ persist throughout our codebase, we lean heavily on <strong>automated linting</s
 <strong>code review</strong>.</p>
 
 <p>A linter serves as a low-cost first pass to catch most of the basic issues. At
-Causes, we are developing a <a href="https://github.com/causes/scss-lint">SCSS linter</a>
-(pull requests welcome) that runs as one of our <a href="https://github.com/causes/git_hooks">Git pre-commit
-hooks</a>. We have trained this linter to
+Causes, we are developing a <a href="https://github.com/causes/scss-lint">SCSS linter</a> (pull requests welcome) that runs
+as one of our <a href="https://github.com/causes/overcommit">Git pre-commit hooks</a>. We have trained this linter to
 enforce basic coding styles such as using one line per selector and
-alphabetizing properties. Also, a tool like
-<a href="http://editorconfig.org/">EditorConfig</a> might be worth taking for a spin.</p>
+alphabetizing properties. Also, a tool like <a href="http://editorconfig.org">EditorConfig</a> might be worth
+taking for a spin.</p>
 
 <p>For problems that are more nuanced and difficult to detect through static
 analysis, such as how well a set of styles expresses the intention of the
