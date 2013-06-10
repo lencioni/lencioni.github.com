@@ -87,12 +87,13 @@ And style them nicely:
 
 ```sass
 .pantone {
+  @include box-sizing(border-box);
   @include box-shadow(0 0 5px rgba(0, 0, 0, .1));
   border: 1px solid #eee;
   float: left;
   font-size: 11px;
-  margin: 0 1em 1em 0;
-  width: 145px;
+  margin: 0 2% 2% 0;
+  width: 23%;
 
   &:nth-child(4n) {
     margin-right: 0;
@@ -100,7 +101,8 @@ And style them nicely:
 
   .chip {
     background: #f00;
-    height: 145px;
+    height: 0;
+    padding-top: 100%; // height based on width (square)
   }
 
   var {
