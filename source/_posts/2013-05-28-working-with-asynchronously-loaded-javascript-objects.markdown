@@ -17,33 +17,29 @@ the page, allowing it to be viewed more quickly. However, if you are loading
 dependent files asynchronously, such as a third-party service's API, making the
 scripts work together is not automatic.
 
-At [Causes](http://www.causes.com) we use Facebook's large (nearly 60 <abbr
+At [Causes][causes] we use Facebook's large (nearly 60 <abbr
 title="Kibibytes">KiB</abbr> gzipped) JavaScript API on our pages. Although
-[they recommend loading it
-asynchronously](https://developers.facebook.com/docs/javascript/gettingstarted/#loading),
-we were already putting our JavaScript at the bottom of the page and weren't
-convinced that async would give us much additional benefit. However, after some
-non-scientific performance tests it appeared that switching to asynchronously
-loading the Facebook API could reduce the time to `DOMContentLoaded` by nearly
-a full second on our pages.
+[they recommend loading it asynchronously][facebook-reference], we were already
+putting our JavaScript at the bottom of the page and weren't convinced that
+async would give us much additional benefit. However, after some non-scientific
+performance tests it appeared that switching to asynchronously loading the
+Facebook API could reduce the time to `DOMContentLoaded` by nearly a full
+second on our pages.
 
 <!-- more -->
 
 After the Facebook API has been loaded asynchronously, it executes
-`window.fbAsyncInit`, which is where  [they
-suggest](https://developers.facebook.com/docs/reference/javascript/#loading)
-placing code that depends on the `FB`.
+`window.fbAsyncInit`, which is where [they suggest][facebook-loading] placing
+code that depends on the `FB`.
 
 The trouble is, we wanted our JavaScript that interacts with the Facebook API
 to continue to work even though it is dispersed throughout our scripts, and it
 may execute before the API was available.
 
-The [answers on
-StackOverflow](http://stackoverflow.com/questions/3548493/how-to-detect-when-facebooks-fb-init-is-complete)
-may work, but they feel inelegant. For instance, [one
-answer](http://stackoverflow.com/a/3549043/18986) addresses this problem by
-setting a flag to true in the `fbAsyncInit` callback, and creates a
-`fbEnsureInit` method that uses a recursive timeout to poll the flag.
+The [answers on StackOverflow][question] may work, but they feel inelegant. For
+instance, [one answer][answer] addresses this problem by setting a flag to true
+in the `fbAsyncInit` callback, and creates a `fbEnsureInit` method that uses a
+recursive timeout to poll the flag.
 
 We decided to take a different approach. Thankfully, the Facebook API sets up a
 single object, `FB`, for developers to interact with.
@@ -100,4 +96,9 @@ released it as [method-proxy-js, an open source project][github-project] under
 the MIT license and packaged it up for `npm`. Installing is as easy as `npm
 install method-proxy-js`.
 
+[causes]: http://www.causes.com
+[facebook-reference]: https://developers.facebook.com/docs/javascript/gettingstarted/#loading
+[facebook-loading]: https://developers.facebook.com/docs/reference/javascript/#loading
+[question]: http://stackoverflow.com/questions/3548493/how-to-detect-when-facebooks-fb-init-is-complete
+[answer]: http://stackoverflow.com/a/3549043/18986
 [github-project]: https://github.com/causes/method-proxy-js
