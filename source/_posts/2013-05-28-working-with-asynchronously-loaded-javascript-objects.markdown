@@ -96,5 +96,8 @@ MyFB.push(['FBML.parse', ...]);
 ```
 
 `MethodProxy` is general enough to be used for other similar cases so we've
-released it as [method-proxy-js, an open source
-project](https://github.com/causes/method-proxy-js). Pull requests welcome.
+released it as [method-proxy-js, an open source project][github-project] under
+the MIT license and packaged it up for `npm`. Installing is as easy as `npm
+install method-proxy-js`.
+
+[github-project]: https://github.com/causes/method-proxy-js
