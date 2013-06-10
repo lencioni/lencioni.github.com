@@ -180,13 +180,12 @@ scripts work together is not automatic.</p>
 
 <p>At <a href="http://www.causes.com">Causes</a> we use Facebook&#8217;s large (nearly 60 <abbr
 title="Kibibytes">KiB</abbr> gzipped) JavaScript API on our pages. Although
-<a href="https://developers.facebook.com/docs/javascript/gettingstarted/#loading">they recommend loading it
-asynchronously</a>,
-we were already putting our JavaScript at the bottom of the page and weren&#8217;t
-convinced that async would give us much additional benefit. However, after some
-non-scientific performance tests it appeared that switching to asynchronously
-loading the Facebook API could reduce the time to <code>DOMContentLoaded</code> by nearly
-a full second on our pages.</p>
+<a href="https://developers.facebook.com/docs/javascript/gettingstarted/#loading">they recommend loading it asynchronously</a>, we were already
+putting our JavaScript at the bottom of the page and weren&#8217;t convinced that
+async would give us much additional benefit. However, after some non-scientific
+performance tests it appeared that switching to asynchronously loading the
+Facebook API could reduce the time to <code>DOMContentLoaded</code> by nearly a full
+second on our pages.</p>
 
 
 		

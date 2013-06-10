@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Asynchronous | Joe Lencioni]]></title>
   <link href="http://joelencioni.com/blog/categories/asynchronous/atom.xml" rel="self"/>
   <link href="http://joelencioni.com/"/>
-  <updated>2013-06-10T12:57:16-07:00</updated>
+  <updated>2013-06-10T14:12:04-07:00</updated>
   <id>http://joelencioni.com/</id>
   <author>
     <name><![CDATA[Joe Lencioni]]></name>
@@ -26,32 +26,28 @@ scripts work together is not automatic.</p>
 
 <p>At <a href="http://www.causes.com">Causes</a> we use Facebook's large (nearly 60 <abbr
 title="Kibibytes">KiB</abbr> gzipped) JavaScript API on our pages. Although
-<a href="https://developers.facebook.com/docs/javascript/gettingstarted/#loading">they recommend loading it
-asynchronously</a>,
-we were already putting our JavaScript at the bottom of the page and weren't
-convinced that async would give us much additional benefit. However, after some
-non-scientific performance tests it appeared that switching to asynchronously
-loading the Facebook API could reduce the time to <code>DOMContentLoaded</code> by nearly
-a full second on our pages.</p>
+<a href="https://developers.facebook.com/docs/javascript/gettingstarted/#loading">they recommend loading it asynchronously</a>, we were already
+putting our JavaScript at the bottom of the page and weren't convinced that
+async would give us much additional benefit. However, after some non-scientific
+performance tests it appeared that switching to asynchronously loading the
+Facebook API could reduce the time to <code>DOMContentLoaded</code> by nearly a full
+second on our pages.</p>
 
 <!-- more -->
 
 
 <p>After the Facebook API has been loaded asynchronously, it executes
-<code>window.fbAsyncInit</code>, which is where  <a href="https://developers.facebook.com/docs/reference/javascript/#loading">they
-suggest</a>
-placing code that depends on the <code>FB</code>.</p>
+<code>window.fbAsyncInit</code>, which is where <a href="https://developers.facebook.com/docs/reference/javascript/#loading">they suggest</a> placing
+code that depends on the <code>FB</code>.</p>
 
 <p>The trouble is, we wanted our JavaScript that interacts with the Facebook API
 to continue to work even though it is dispersed throughout our scripts, and it
 may execute before the API was available.</p>
 
-<p>The <a href="http://stackoverflow.com/questions/3548493/how-to-detect-when-facebooks-fb-init-is-complete">answers on
-StackOverflow</a>
-may work, but they feel inelegant. For instance, <a href="http://stackoverflow.com/a/3549043/18986">one
-answer</a> addresses this problem by
-setting a flag to true in the <code>fbAsyncInit</code> callback, and creates a
-<code>fbEnsureInit</code> method that uses a recursive timeout to poll the flag.</p>
+<p>The <a href="http://stackoverflow.com/questions/3548493/how-to-detect-when-facebooks-fb-init-is-complete">answers on StackOverflow</a> may work, but they feel inelegant. For
+instance, <a href="http://stackoverflow.com/a/3549043/18986">one answer</a> addresses this problem by setting a flag to true
+in the <code>fbAsyncInit</code> callback, and creates a <code>fbEnsureInit</code> method that uses a
+recursive timeout to poll the flag.</p>
 
 <p>We decided to take a different approach. Thankfully, the Facebook API sets up a
 single object, <code>FB</code>, for developers to interact with.</p>
@@ -113,8 +109,9 @@ MyFB = window.MyFB || [];</p>
 ```</p>
 
 <p><code>MethodProxy</code> is general enough to be used for other similar cases so we've
-released it as <a href="https://github.com/causes/method-proxy-js">method-proxy-js, an open source
-project</a>. Pull requests welcome.</p>
+released it as <a href="https://github.com/causes/method-proxy-js">method-proxy-js, an open source project</a> under
+the MIT license and packaged it up for <code>npm</code>. Installing is as easy as <code>npm
+install method-proxy-js</code>.</p>
 ]]></content>
   </entry>
   
