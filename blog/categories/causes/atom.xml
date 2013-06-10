@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Causes | Joe Lencioni]]></title>
   <link href="http://joelencioni.com/blog/categories/causes/atom.xml" rel="self"/>
   <link href="http://joelencioni.com/"/>
-  <updated>2013-06-07T08:51:34-07:00</updated>
+  <updated>2013-06-10T12:57:16-07:00</updated>
   <id>http://joelencioni.com/</id>
   <author>
     <name><![CDATA[Joe Lencioni]]></name>
@@ -106,12 +106,13 @@ markup:</p>
 
 <p>```sass
 .pantone {
+  @include box-sizing(border-box);
   @include box-shadow(0 0 5px rgba(0, 0, 0, .1));
   border: 1px solid #eee;
   float: left;
   font-size: 11px;
-  margin: 0 1em 1em 0;
-  width: 145px;</p>
+  margin: 0 2% 2% 0;
+  width: 23%;</p>
 
 <p>  &amp;:nth-child(4n) {</p>
 
@@ -123,7 +124,8 @@ markup:</p>
 <p>  .chip {</p>
 
 <pre><code>background: #f00;
-height: 145px;
+height: 0;
+padding-top: 100%; // height based on width (square)
 </code></pre>
 
 <p>  }</p>

@@ -4,7 +4,7 @@
   <title><![CDATA[Joe Lencioni]]></title>
   <link href="http://joelencioni.com/atom.xml" rel="self"/>
   <link href="http://joelencioni.com/"/>
-  <updated>2013-06-07T08:51:34-07:00</updated>
+  <updated>2013-06-10T12:57:16-07:00</updated>
   <id>http://joelencioni.com/</id>
   <author>
     <name><![CDATA[Joe Lencioni]]></name>
@@ -140,13 +140,16 @@ markup:</p>
 <span class='line-number'>23</span>
 <span class='line-number'>24</span>
 <span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
 </pre></td><td class='code'><pre><code class='sass'><span class='line'><span class="nc">.pantone</span> <span class="err">{</span>
+</span><span class='line'>  <span class="k">@include</span><span class="nd"> box-sizing</span><span class="p">(</span><span class="no">border</span><span class="o">-</span><span class="n">box</span><span class="p">)</span><span class="err">;</span>
 </span><span class='line'>  <span class="k">@include</span><span class="nd"> box-shadow</span><span class="p">(</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">5</span><span class="kt">px</span> <span class="nf">rgba</span><span class="p">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mf">.1</span><span class="p">))</span><span class="err">;</span>
 </span><span class='line'>  <span class="na">border</span><span class="o">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="no">solid</span> <span class="mh">#eee</span><span class="err">;</span>
 </span><span class='line'>  <span class="na">float</span><span class="o">:</span> <span class="no">left</span><span class="err">;</span>
 </span><span class='line'>  <span class="na">font-size</span><span class="o">:</span> <span class="mi">11</span><span class="kt">px</span><span class="err">;</span>
-</span><span class='line'>  <span class="na">margin</span><span class="o">:</span> <span class="mi">0</span> <span class="mi">1</span><span class="kt">em</span> <span class="mi">1</span><span class="kt">em</span> <span class="mi">0</span><span class="err">;</span>
-</span><span class='line'>  <span class="na">width</span><span class="o">:</span> <span class="mi">145</span><span class="kt">px</span><span class="err">;</span>
+</span><span class='line'>  <span class="na">margin</span><span class="o">:</span> <span class="mi">0</span> <span class="mi">2</span><span class="kt">%</span> <span class="mi">2</span><span class="kt">%</span> <span class="mi">0</span><span class="err">;</span>
+</span><span class='line'>  <span class="na">width</span><span class="o">:</span> <span class="mi">23</span><span class="kt">%</span><span class="err">;</span>
 </span><span class='line'>
 </span><span class='line'>  <span class="k">&amp;</span><span class="nd">:nth-child</span><span class="o">(</span><span class="nt">4n</span><span class="o">)</span> <span class="err">{</span>
 </span><span class='line'>    <span class="na">margin-right</span><span class="o">:</span> <span class="mi">0</span><span class="err">;</span>
@@ -154,7 +157,8 @@ markup:</p>
 </span><span class='line'>
 </span><span class='line'>  <span class="nc">.chip</span> <span class="err">{</span>
 </span><span class='line'>    <span class="na">background</span><span class="o">:</span> <span class="mh">#f00</span><span class="err">;</span>
-</span><span class='line'>    <span class="na">height</span><span class="o">:</span> <span class="mi">145</span><span class="kt">px</span><span class="err">;</span>
+</span><span class='line'>    <span class="na">height</span><span class="o">:</span> <span class="mi">0</span><span class="err">;</span>
+</span><span class='line'>    <span class="na">padding-top</span><span class="o">:</span> <span class="mi">100</span><span class="kt">%</span><span class="err">;</span> <span class="c1">// height based on width (square)</span>
 </span><span class='line'>  <span class="err">}</span>
 </span><span class='line'>
 </span><span class='line'>  <span class="nt">var</span> <span class="err">{</span>
