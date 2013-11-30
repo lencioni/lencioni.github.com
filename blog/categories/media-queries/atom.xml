@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Media queries | Joe Lencioni]]></title>
+  <link href="http://joelencioni.com/blog/categories/media-queries/atom.xml" rel="self"/>
+  <link href="http://joelencioni.com/"/>
+  <updated>2013-11-29T16:56:56-08:00</updated>
+  <id>http://joelencioni.com/</id>
+  <author>
+    <name><![CDATA[Joe Lencioni]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Sassy Progressive <em>Enhancement</em>]]></title>
+    <link href="http://joelencioni.com/blog/2013/11/29/sassy-progressive-enhancement/"/>
+    <updated>2013-11-29T15:50:00-08:00</updated>
+    <id>http://joelencioni.com/blog/2013/11/29/sassy-progressive-enhancement</id>
+    <content type="html"><![CDATA[<p>A mobile-first approach to design can be good: it helps you to focus and
+potentially simplify your requirements, which can translate into a better user
+experience. Likewise, a mobile-first approach to implementation can be good: it
+puts the more expensive tasks on the shoulders of clients that are more likely
+to be able to handle the extra load, which can also translate to a better user
+experience.</p>
+
+<p>At <a href="https://www.causes.com">Causes</a>, we have been building things with a mobile-first approach both
+in terms of design and implementation with a goal of progressive enhancement.
+Since switching to this mode on the technical side, we have noticed that our
+code is easier to write and more coherent to read, both of which are big
+benefits for the engineering team.</p>
+
+<p>So we've put together a little project that helps us write readable media
+queries in this way. We call it <a href="https://github.com/causes/sass-enhance">sass-enhance</a>.</p>
+
+<!-- more -->
+
+
+<h2>sass-enhance In Action</h2>
+
+<p>sass-enhance defines mixins for media queries, <code>enhance</code> and <code>degrade</code>.</p>
+
+<p>These mixins each take a breakpoint as an argument, and a block of styles to
+apply when that breakpoint is activated. Optionally, you can specify ranged
+breakpoints using <code>until</code>.</p>
+
+<p>Breakpoints can be named, as defined in the <code>$breakpoint-max-widths</code> variable
+(e.g. "tablet"), or arbitrary widths (e.g. "720px").</p>
+
+<h3><code>enhance()</code></h3>
+
+<p>The <code>enhance</code> mixin is used to apply styles to a selector as the viewport gets
+wider. It can be used to progressively enhance a page. We prefer using
+<code>enhance</code> over <code>degrade</code> because it is a mobile-first implementation that tends
+to be simpler in its execution.</p>
+
+<p>To adjust the padding from 1em to 2em at the desktop breakpoint and wider, you
+could use the following SCSS:</p>
+
+<p>```scss
+.my-selector {
+  padding: 1em;</p>
+
+<p>  @include enhance(desktop) {</p>
+
+<pre><code>padding: 2em;
+</code></pre>
+
+<p>  }
+}
+```</p>
+
+<p>Which compiles to:</p>
+
+<p>```css
+.my-selector {
+  padding: 1em;
+}</p>
+
+<p>@media screen and (min-width: 960px) {
+  .my-selector {</p>
+
+<pre><code>padding: 2em;
+</code></pre>
+
+<p>  }
+}
+```</p>
+
+<p>If you wanted to only apply a different amount of padding for only the tablet
+viewport width and nothing wider or narrower, you could use the following SCSS:</p>
+
+<p>```scss
+.my-selector {
+  padding: 1em;</p>
+
+<p>  @include enhance(tablet until desktop) {</p>
+
+<pre><code>padding: 2em;
+</code></pre>
+
+<p>  }
+}
+```</p>
+
+<p>Which compiles to:</p>
+
+<p>```css
+.my-selector {
+  padding: 1em;
+}</p>
+
+<p>@media screen and (min-width: 641px) and (max-width: 959px) {
+  .my-selector {</p>
+
+<pre><code>padding: 2em;
+</code></pre>
+
+<p>  }
+}
+```</p>
+
+<h3><code>degrade()</code></h3>
+
+<p>There are some cases where <code>enhance</code> does not work or make sense. In these
+cases, it is okay to use <code>degrade</code> to gracefully degrade the styles as the
+viewport gets narrower.</p>
+
+<p>To adjust the padding from 2em to 1em at the tablet breakpoint and narrower,
+you could use the following SCSS:</p>
+
+<p>```scss
+.my-selector {
+  padding: 2em;</p>
+
+<p>  @include degrade(tablet) {</p>
+
+<pre><code>padding: 1em;
+</code></pre>
+
+<p>  }
+}
+```</p>
+
+<p>Note: this produces functionally equivalent styles as the first example.</p>
+
+<p>Likewise, if you wanted to only apply a different amount of padding for only
+the tablet viewport width and nothing wider or narrower, you could use the
+following SCSS:</p>
+
+<p>```scss
+.my-selector {
+  padding: 2em;</p>
+
+<p>  @include degrade(tablet until small-tablet) {</p>
+
+<pre><code>padding: 1em;
+</code></pre>
+
+<p>  }
+}
+```</p>
+
+<h2>Installation</h2>
+
+<p>The recommended way to get set up with sass-enhance is via <a href="http://bower.io">Bower</a>, the
+front-end package manager. To do this, simply run:</p>
+
+<p><code>bash
+bower install sass-enhance
+</code></p>
+
+<p>If your project uses Bower to manage its dependencies and you'd like to save
+sass-enhance as a dependency in your project's <code>bower.json</code> manifest file, add
+the <code>--save</code> option:</p>
+
+<p><code>bash
+bower install --save sass-enhance
+</code></p>
+
+<p>Once you have the files locally, you simply need to import it so it is
+available to your stylesheets. At Causes, we are building a Rails app, so we
+symlink sass-enhance into <code>vendor/assets/stylesheets/sass-enhance/</code> and
+<code>@import</code> it ear the top of our SCSS files:</p>
+
+<p><code>scss
+@import 'sass-enhance/sass-enhance';
+</code></p>
+
+<h2>Configuration</h2>
+
+<p>Although sass-enhance will work just fine right out of the box, you may be
+itching to configure it to fit your needs just right. For this purpose, we have
+included a variable that you can set, called <code>$breakpoint-max-widths</code>. Just
+make sure to set this variable <em>before importing sass-enhance</em> or your settings
+will not work.</p>
+
+<p>This variable is a comma separated list of breakpoint names and max-width
+pairs. You can choose whatever names and widths you prefer. The default is
+something like:</p>
+
+<p>```scss
+$breakpoint-max-widths: mobile           360px,</p>
+
+<pre><code>                    mobile-landscape 500px,
+                    small-tablet     640px,
+                    tablet           959px,
+                    desktop          99999px;
+</code></pre>
+
+<p>```</p>
+
+<p>So, if you prefer media queries with more generic names, you are free to
+configure it to suit your needs:</p>
+
+<p>```scss
+$breakpoint-max-widths: small  400px,</p>
+
+<pre><code>                    medium 800px,
+                    large  1000px;
+</code></pre>
+
+<p>```</p>
+
+<h2>Conclusion</h2>
+
+<p>We hope that you find this tool useful. Pull requests are welcome. <a href="https://github.com/causes/sass-enhance">View the
+source on GitHub</a>.</p>
+]]></content>
+  </entry>
+  
+</feed>
