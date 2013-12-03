@@ -11,7 +11,7 @@ categories:
   - Progressive enhancement
 ---
 
-A mobile-first approach to design can be good: it helps you to focus and
+A mobile-first approach to design can be good: it helps you focus and
 potentially simplify your requirements, which can translate into a better user
 experience. Likewise, a mobile-first approach to implementation can be good: it
 puts the more expensive tasks on the shoulders of clients that are more likely
