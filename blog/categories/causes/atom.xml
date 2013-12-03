@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Causes | Joe Lencioni]]></title>
   <link href="http://joelencioni.com/blog/categories/causes/atom.xml" rel="self"/>
   <link href="http://joelencioni.com/"/>
-  <updated>2013-11-29T16:56:56-08:00</updated>
+  <updated>2013-12-02T18:41:22-08:00</updated>
   <id>http://joelencioni.com/</id>
   <author>
     <name><![CDATA[Joe Lencioni]]></name>
@@ -18,7 +18,7 @@
     <link href="http://joelencioni.com/blog/2013/11/29/sassy-progressive-enhancement/"/>
     <updated>2013-11-29T15:50:00-08:00</updated>
     <id>http://joelencioni.com/blog/2013/11/29/sassy-progressive-enhancement</id>
-    <content type="html"><![CDATA[<p>A mobile-first approach to design can be good: it helps you to focus and
+    <content type="html"><![CDATA[<p>A mobile-first approach to design can be good: it helps you focus and
 potentially simplify your requirements, which can translate into a better user
 experience. Likewise, a mobile-first approach to implementation can be good: it
 puts the more expensive tasks on the shoulders of clients that are more likely
