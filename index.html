@@ -7,8 +7,8 @@
 	<meta name="author" content="Joe Lencioni">
 
 	
-	<meta name="description" content="A mobile-first approach to design can be good: it helps you focus and
-potentially simplify your requirements, which can translate into a better user &hellip;">
+	<meta name="description" content="We tend to prefer convention over configuration, so when we first began using
+Bower to manage our front-end dependencies, we started with minimal &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -75,6 +75,60 @@ potentially simplify your requirements, which can translate into a better user &
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post"><div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-03T10:00:00-08:00" pubdate data-updated="true">Jan 3<span>rd</span>, 2014</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/asset-pipeline/'>Asset Pipeline</a>, <a class='category' href='/blog/categories/bower/'>Bower</a>, <a class='category' href='/blog/categories/causes/'>Causes</a>, <a class='category' href='/blog/categories/rails/'>Rails</a>, <a class='category' href='/blog/categories/sprockets/'>Sprockets</a>
+
+
+</div>
+	
+</div>
+
+
+	<h2 class="title">
+		
+		<a href="/blog/2014/01/03/integrating-bower-with-rails/">
+		
+			Integrating Bower <em>with Rails</em></a>
+	</h2>
+	<div class="entry-content">
+		<p>We tend to prefer convention over configuration, so when we first began using
+<a href="http://bower.io/">Bower</a> to manage our front-end dependencies, we started with minimal
+configuration. While this nicely put the files in the expected places, it was a
+hassle actually using the assets in our Rails app.</p>
+
+<p>Our basic initial approach was to symlink the assets that we wanted to
+reference from the <code>bower_components</code> directory into <code>vendor/assets</code> where
+Sprockets would notice them. While this worked in the short term, it was
+tedious to set up new packages, and was likely to break if the required assets
+were moved when upgrading dependencies.</p>
+
+<p>Ultimately, this felt like a hack. We decided that there must be a better way.
+Thankfully there is.</p>
+
+
+		
+		<a href="/blog/2014/01/03/integrating-bower-with-rails/" class="more-link">Read on &rarr;</a>
+	</div>
+
+</article>
 
 
     <article class="post"><div class="meta">
@@ -318,7 +372,7 @@ maintainability.</p>
     
     <div class="center"><a href="/blog/archives">Blog Archives</a></div>
 </nav></div>
-	<footer id="footer" class="inner">Copyright &copy; 2013
+	<footer id="footer" class="inner">Copyright &copy; 2014
 
     Joe Lencioni
 
