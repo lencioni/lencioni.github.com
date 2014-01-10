@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Integrating Bower <em>with Rails</em>"
+title: "Integrating Bower with <em>Rails, Sprockets, and the Asset Pipeline</em>"
 date: 2014-01-03 10:00
 comments: true
 sharing: false
