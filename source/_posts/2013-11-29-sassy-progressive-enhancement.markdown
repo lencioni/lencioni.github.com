@@ -155,8 +155,9 @@ bower install --save sass-enhance
 
 Once you have the files locally, you simply need to import it so it is
 available to your stylesheets. At Causes, we are building a Rails app, so we
-symlink sass-enhance into `vendor/assets/stylesheets/sass-enhance/` and
-`@import` it ear the top of our SCSS files:
+<del>symlink sass-enhance into `vendor/assets/stylesheets/sass-enhance/`</del>
+have [integrated Bower with Sprockets and the asset pipeline][Bower/Rails], and
+`@import` it near the top of our SCSS files:
 
 ```scss
 @import 'sass-enhance/sass-enhance';
@@ -199,3 +200,4 @@ source on GitHub][sass-enhance].
 [Causes]: https://www.causes.com
 [sass-enhance]: https://github.com/causes/sass-enhance
 [Bower]: http://bower.io
+[Bower/Rails]: /blog/2014/01/03/integrating-bower-with-rails/
