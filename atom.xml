@@ -4,7 +4,7 @@
   <title><![CDATA[Joe Lencioni]]></title>
   <link href="http://joelencioni.com/atom.xml" rel="self"/>
   <link href="http://joelencioni.com/"/>
-  <updated>2014-02-19T15:16:41-08:00</updated>
+  <updated>2014-02-19T15:22:25-08:00</updated>
   <id>http://joelencioni.com/</id>
   <author>
     <name><![CDATA[Joe Lencioni]]></name>
@@ -34,6 +34,9 @@ in and asks, &#8220;Sally, lots of comments have gone missing. Do you know what
 happened?&#8221; Sally felt like she had swallowed a sack of doorknobs. In the midst
 of her coding spree, she mixed up some of her browser tabs and accidentally
 deleted live data. A lot of live data.</p>
+
+<!-- more -->
+
 
 <hr />
 
