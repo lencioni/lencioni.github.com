@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Causes | Joe Lencioni]]></title>
   <link href="http://joelencioni.com/blog/categories/causes/atom.xml" rel="self"/>
   <link href="http://joelencioni.com/"/>
-  <updated>2014-01-10T09:56:18-08:00</updated>
+  <updated>2014-02-19T15:16:41-08:00</updated>
   <id>http://joelencioni.com/</id>
   <author>
     <name><![CDATA[Joe Lencioni]]></name>
@@ -12,6 +12,86 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Differentiate Environments <em>with Different Favicons</em>]]></title>
+    <link href="http://joelencioni.com/blog/2014/02/19/differentiate-environments-with-different-favicons/"/>
+    <updated>2014-02-19T14:04:00-08:00</updated>
+    <id>http://joelencioni.com/blog/2014/02/19/differentiate-environments-with-different-favicons</id>
+    <content type="html"><![CDATA[<p>Sally has been tasked with improving the commenting feature in her company's
+webapp. The design team decided that comments should be threaded up to 5 levels
+deep, instead of the current 2 levels.</p>
+
+<p>As Sally makes adjustments to the code, she opens up an unprecedented number of
+browser tabs. Some of them are pointed at her company's production site, while
+others are pointed at her development environment. In many of them, she enabled
+"super-user" mode, so she could more freely play with her app before and after
+her changes.</p>
+
+<p>So she goes on coding and messing with the data for most of the afternoon.
+She's about ready to wrap up and head home for the evening when her boss walks
+in and asks, "Sally, lots of comments have gone missing. Do you know what
+happened?" Sally felt like she had swallowed a sack of doorknobs. In the midst
+of her coding spree, she mixed up some of her browser tabs and accidentally
+deleted live data. A lot of live data.</p>
+
+<hr />
+
+<p>At Causes, I often have a number of tabs open. Much like Sally, many of these
+are pointed at my development environment or the production environment.
+While I haven't been as unfortunate as Sally and accidentally done something in
+production, I noticed that I spent a fair amount of time searching through
+my tabs for the one I was looking for. When pairing with my colleagues, I
+noticed that they were spending a good amount of time doing the same thing.
+Although it wasn't a serious time commitment by any means, it slowed me down
+regularly. Sometimes, it was enough of a speed bump that took me out of my
+flow. I decided that there must be a way to improve this situation.</p>
+
+<p>The browser gives you two pieces of information in the tab: the page title and
+the favicon. This information should provide you with enough context for you to
+make a decision as to which tab you want to foist your full attention.</p>
+
+<p>Since page titles are often the same between environments, that's not a very
+useful way to differentiate between these types of tabs out of the box. I
+considered adding a prefix to the page title in development, as you might see
+with subject lines on email lists, but page titles are often hidden when you
+have lots of tabs open. Additionally, page titles feel like page-specific
+content, and we typically like things like that to be as similar as possible
+between development and production.</p>
+
+<p>Then I realized that we could pack this information into our favicon. The
+favicon is the perfect place to put this because they are often indicators of a
+domain, not a page. Also, favicons are the last piece of information to be
+hidden when opening definetly way too many tabs.</p>
+
+<p>I hit the command line and simply inverted the colors on our production favicon
+using ImageMagick, added some configuration to our development environment to
+use the inverted image, and I was up and running. Now it is much easier to
+figure out which tab is the one I am looking for.</p>
+
+<p>In a Rails environment, for example, you can make this magic happen by first
+defining a constant in your application configuration that points to the
+location of your production favicon file.</p>
+
+<p><code>ruby config/application.rb
+FAVICON = 'icons/favicon.png'
+</code></p>
+
+<p>And in your development environment configuration, override this constant to
+point to a different favicon file:</p>
+
+<p><code>ruby config/environments/development.rb
+FAVICON = 'icons/favicon-inverted.png'
+</code></p>
+
+<p>Then simply consume the constant in your layouts and you should be good to go.</p>
+
+<p>This quick adjustment is so easy to do and will make you and your team a little
+bit faster every single day. It might even prevent some headaches. And, don't
+worry about Sally—thankfully she had only soft-deleted the comments.  All of
+the data was easily restored.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Integrating Bower with <em>Rails, Sprockets, and the Asset Pipeline</em>]]></title>
@@ -560,580 +640,6 @@ MyFB = window.MyFB || [];</p>
 released it as <a href="https://github.com/causes/method-proxy-js">method-proxy-js, an open source project</a> under
 the MIT license and packaged it up for <code>npm</code>. Installing is as easy as <code>npm
 install method-proxy-js</code>.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[10 Easy Ways to Craft <em>More Readable CSS</em>]]></title>
-    <link href="http://joelencioni.com/blog/2013/03/16/10-easy-ways-to-craft-more-readable-css/"/>
-    <updated>2013-03-16T15:45:00-07:00</updated>
-    <id>http://joelencioni.com/blog/2013/03/16/10-easy-ways-to-craft-more-readable-css</id>
-    <content type="html"><![CDATA[<blockquote><p>Always code as if the [person] who ends up maintaining your code will be a
-violent psychopath who knows where you live. Code for readability.
-—<cite><a href="https://groups.google.com/d/msg/comp.lang.c++/rYCO5yn4lXw/oITtSkZOtoUJ">John Woods</a></cite></p></blockquote>
-
-<p>Diving into a large, old piece of CSS typically is neither easy nor
-pleasurable. I find that <strong>the biggest challenges in working with old CSS often
-lie in understanding the purpose and interactions of the styles</strong>.</p>
-
-<p>When styling new elements, we have the entire context of the implementation
-immediately available, and it is easy to write styles that make sense to us at
-that very moment. However, in a few weeks or to a fresh pair of eyes, what made
-a lot of sense at first might end up being a lot more cryptic. Without a clear
-understanding of the purpose and interactions of the styles, modifying
-stylesheets can be dangerous, tedious, and cumbersome. Therefore, it is
-important to communicate enough context so that future developers will be able
-to grok the code easily and make informed decisions.</p>
-
-<p>At <a href="http://www.causes.com">Causes</a>, we have adopted the following practices which we believe have
-improved the maintainability of our stylesheets, reduced bugs, and increased
-developer velocity. When you have finished reading this, I hope that you will
-have a few more tools to help move your codebase toward greater
-maintainability.</p>
-
-<!-- more -->
-
-
-<p><a name="show-your-work"></a></p>
-
-<h2>1. Show Your Work</h2>
-
-<p>My math teachers would always require me to show my work. And, for good
-reason—this exposed the steps that led up to my answer, allowing my teacher to
-observe my thought processes and understand the point at which things went
-horribly wrong (or magnificently right). In other words, showing my work
-communicated a greater context with which to understand the reason something
-was done.</p>
-
-<p>Similarly, styles that show the work behind mysterious numbers communicate more
-context, making them more readable and maintainable. We can easily apply this
-when using a relative unit like <a href="http://en.wikipedia.org/wiki/Em_(typography)">ems</a>, where we determine the value by
-taking the target size in pixels divided by the context size in pixels:</p>
-
-<pre><code>ems = target px / context px
-</code></pre>
-
-<p>Imagine that we want to have an element with a font size of 10px, but defined
-in ems, inside a container with a font size of 16px. The quick and easy way
-would be to run through the equation above and simply drop in the result:</p>
-
-<p><code>css Quick, easy, and unreadable ems
-font-size: .625em;
-</code></p>
-
-<p>However, if someone were to come along a few weeks later and see this strange
-number, they might be confused about its exact meaning. Using a CSS
-preprocessor such as <a href="http://sass-lang.com">Sass</a>, we can use a little math to show our work and
-communicate more context:</p>
-
-<p><code>scss Readable ems with Sass math
-font-size: (10px / 16px) * 1em;
-</code></p>
-
-<p>Or, in plain CSS, a little comment can go a long way:</p>
-
-<p><code>css Readable ems in plain CSS
-font-size: .625em; /* 10px / 16px */
-</code></p>
-
-<p>Now, when someone sees this style, it is plain that it was expected to target a
-10px font size in a 16px font size context, and it will be easier to make an
-informed decision as to how to modify it.</p>
-
-<p>Think of our styles as machines with many parts. If the machine isn’t working
-as we’d like, it will be easier to repair it if we can actually see the moving
-parts.</p>
-
-<p><a name="two-or-more-use-a-for"></a></p>
-
-<h2>2. Two or More, Use a For</h2>
-
-<p>Spend some time establishing patterns and defining characteristics generally,
-to promote reusability. This can be accomplished through setting up
-presentational classes that can be mixed and matched to achieve a unified
-visual appearance. It might be a good idea to set up a library of these
-patterns that you can share with your team or start with a good framework like
-<a href="http://typeplate.com">Typeplate</a> or <a href="http://twitter.github.com/bootstrap/">Bootstrap</a> that kickstart this process for us.</p>
-
-<p>With a CSS preprocessor like Sass, we have some very useful tools that allow us
-to kick this up a notch, more easily take a <a href="http://en.wikipedia.org/wiki/Don%27t_repeat_yourself">DRY</a> approach to CSS, and do
-more with less code.</p>
-
-<p><strong>Dispel magic numbers with variables.</strong> Similar to showing our work, instead
-of leaving a hex color like <code>#00c5cd</code> for somebody to grok, naming it
-<code>$turquoise</code> helps others immediately recognize what it is. In this case, the
-reusability of variables is just the icing on the cake.</p>
-
-<p><strong>Perform common calculations with functions.</strong> <a href="http://sass-lang.com/docs/yardoc/Sass/Script/Functions.html">Sass has a bunch of built-in
-functions</a> that can make our lives easier. To fill in the gaps, Sass allows
-us to define our own functions. For example, at Causes we added a Sass function
-that facilitates calculations of ems:</p>
-
-<p>``` scss Defining functions in Sass http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#function_directives
-@function calc-em($target-px, $context-px) {
-  @return ($target-px / $context-px) * 1em;
-}</p>
-
-<p>h1 {
-  font-size: calc-em(36px, 16px);
-}
-```</p>
-
-<p><strong>Use mixins and loops to abstract out common patterns.</strong> Packages like
-<a href="http://compass-style.org">Compass</a> and <a href="http://bourbon.io">Bourbon</a> give us a lot of mixins right out of the box that
-make cross-browser compatibility a breeze. So, instead of this mess:</p>
-
-<p><code>css Vendor-prefixed CSS transitions
--moz-transition: all 0.8s ease-in-out;
--ms-transition: all 0.8s ease-in-out;
--o-transition: all 0.8s ease-in-out;
--webkit-transition: all 0.8s ease-in-out;
-transition: all 0.8s ease-in-out;
-</code></p>
-
-<p>With Compass:</p>
-
-<p><code>scss Simple transitions in SCSS with Compass http://compass-style.org/reference/compass/css3/transition/
-@include transition(all 0.8s ease-in-out);
-</code></p>
-
-<p>Similarly, our first pass at a responsive design implementation added a
-stylesheet on top of all of our styles to collect media queries.  However,
-there was too much distance between the original style and the style being
-modified in the media query, which resulted in the styles quickly becoming out
-of sync as developers made modifications. So we sprinkled these styles
-throughout our code, moving our media queries adjacent to the styles themselves
-to increase locality, and used mixins to simplify the implementation, improve
-readability, and reduce repetition:</p>
-
-<p>``` scss Using Sass mixins for media queries http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#mixins
-@mixin respond-to($media) {
-  @if $media == tablet {</p>
-
-<pre><code>@media only screen and (max-width: 768px) { @content; }
-</code></pre>
-
-<p>  }
-  @else if $media == mobile {</p>
-
-<pre><code>@media only screen and (max-width: 360px) { @content; }
-</code></pre>
-
-<p>  }
-}</p>
-
-<p>h1 {
-  font-size: calc-em(36px, 16px);</p>
-
-<p>  @include respond-to(tablet) {</p>
-
-<pre><code>font-size: calc-em(24px, 16px);
-</code></pre>
-
-<p>  }</p>
-
-<p>  @include respond-to(mobile) {</p>
-
-<pre><code>font-size: calc-em(18px, 16px);
-</code></pre>
-
-<p>  }
-}
-```</p>
-
-<p>However, mixins and loops are a double-edged sword that can easily result in
-generating too many styles. Always consider how your styles can be generalized
-and reused. There may also be occasions where <code>@extend</code> makes a lot of sense,
-but <a href="http://8gramgorilla.com/mastering-sass-extends-and-placeholders/">make sure to use it with placeholders</a>.</p>
-
-<p><a name="use-percentages-for-most-widths"></a></p>
-
-<h2>3. Use Percentages for (Most) Widths</h2>
-
-<p>Have you ever beautifully styled an element, only to come back a few months
-later to discover that the width needs to be adjusted due to an unrelated
-change to a container?</p>
-
-<p>I’ve discovered that if I start with percentages for horizontal dimensions
-(widths, margins, and paddings) instead of pixels, <em>even when I’m not working
-with a flexible design</em>, my styles are more resilient and require much less
-babysitting. As a bonus, they tend to work better when dropped into new and
-unexpected contexts and transition very well to flexible and responsive
-layouts.</p>
-
-<p>When using Sass, lean heavily on the percentage function to show your work (or
-leave a comment):</p>
-
-<p><code>scss Sass percentage function http://sass-lang.com/docs/yardoc/Sass/Script/Functions.html#percentage-instance_method
-width: percentage(target / context);
-</code></p>
-
-<p>Browsers use a default content-box sizing model to determine the sizes of
-elements. This means that the <code>width</code> style will apply to the content box, and
-then the padding, border, and margin get added on top of that. This is a
-frequent gotcha when using percentages for widths, causing the element to take
-up more space than you intended. Thankfully, we can tell the browser to use a
-different box sizing model that calculates the size of an element including its
-padding and border. Using the <code>box-sizing</code> property:</p>
-
-<p><code>css Vendor-prefixed CSS box-sizing
-textarea {
-  border: 1px solid #333;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -ms-box-sizing: border-box;
-  -o-box-sizing: border-box;
-  box-sizing: border-box;
-  padding: 1em;
-  width: 100%;
-}
-</code></p>
-
-<p>Or, using Compass:</p>
-
-<p><code>scss SCSS and Compass box-sizing http://compass-style.org/reference/compass/css3/box_sizing/
-textarea {
-  @include box-sizing(border-box);
-  border: 1px solid #333;
-  padding: 1em;
-  width: 100%;
-}
-</code></p>
-
-<p>There are circumstances that require some fixed-width styles. For instance,
-imagine a search box widget that consists of a text input and a button
-side-by-side. If we want the entire widget to occupy the full width of its
-container, but the button to be always as narrow as possible, we might want to
-define the width of the button using a fixed unit and the input using a
-percentage.</p>
-
-<p><img class="fancy" src="/assets/2013-03-16-flexible-search-widget.png"></p>
-
-<p>``` html HTML http://jsfiddle.net/jdRJB/
-<form class="search-widget" method="get" action="action">
-  <input type="submit" value="Search">
-  <fieldset></p>
-
-<pre><code>&lt;input name="q" type="search"&gt;
-</code></pre>
-
-<p>  </fieldset>
-</form>
-```</p>
-
-<p>``` css CSS http://jsfiddle.net/jdRJB/
-.search-widget fieldset {
-  border: 0;
-  margin-right: 5em;
-  padding: 0;
-}</p>
-
-<p>.search-widget input[type=submit] {
-  float: right;
-  width: 5em;
-}</p>
-
-<p>.search-widget input[type=search] {
-  width: 100%;
-}
-```</p>
-
-<p>``` scss SCSS
-.search-widget {
-  fieldset {</p>
-
-<pre><code>border: 0;
-margin-right: 5em;
-padding: 0;
-</code></pre>
-
-<p>  }</p>
-
-<p>  input[type=submit] {</p>
-
-<pre><code>float: right;
-width: 5em;
-</code></pre>
-
-<p>  }</p>
-
-<p>  input[type=search] {</p>
-
-<pre><code>width: 100%;
-</code></pre>
-
-<p>  }
-}
-```</p>
-
-<p><a name="express-intention"></a></p>
-
-<h2>4. Express Intention</h2>
-
-<p>At the core of the previous tips is this: write styles that most closely and
-<em>clearly express the intention of the implementation</em>. This is my single,
-overarching principle for writing readable CSS.</p>
-
-<p>For example, let’s say we have a <code>heading</code> and a <code>blockquote</code> and we want the
-<code>heading</code> to be larger and the <code>blockquote</code> to be smaller than the body copy.
-Using pixels, we could write:</p>
-
-<p>``` css Font sizes using fixed units (px)
-h1 {
-  font-size: 32px;
-}</p>
-
-<p>blockquote {
-  font-size: 14px;
-}
-```</p>
-
-<p>While this will work pretty well for our small, local implementation, the
-styles themselves live in isolation and they don’t communicate to the reader
-how they relate to one another. In this case, using a relative unit like ems
-allows us to define how these styles relate to each other and communicate that
-what we really want is for the heading to be twice as big as the body copy and
-for blockquotes to be slightly smaller than the body copy:</p>
-
-<p>``` css Font sizes using relative units (em)
-h1 {
-  font-size: 2em; /<em> 32px / 16px </em>/
-}</p>
-
-<p>blockquote {
-  font-size: .875em; /<em> 14px / 16px </em>/
-}
-```</p>
-
-<p>Similarly, styles that use <code>inherit</code> and <code>rgba</code> appropriately are often more
-intention-expressing and resilient.</p>
-
-<p>``` scss Using inherit in SCSS
-.masthead {
-  background-color: #000;
-  color: #fff;</p>
-
-<p>  a {</p>
-
-<pre><code>color: inherit;
-</code></pre>
-
-<p>  }
-}
-```</p>
-
-<p>Class and ID names that are consistently formed and semantically meaningful go
-along with the spirit of this point. Standardize on how to treat spaces. At
-Causes, we use hyphens, but underscores and camelCasing are also reasonable
-choices if you are consistent. Tend to pick names that describe the purpose or
-meaning of the content, and not how it happens to appear. For instance,
-<code>.local-navigation</code> is a better name than <code>.left-column</code>, especially when you
-start using media queries to reflow major elements or decide that your local
-navigation should be on the right side one day.</p>
-
-<p><a name="be-less-specific"></a></p>
-
-<h2>5. Be Less Specific</h2>
-
-<p>Ideally, styles behave consistently across your site. Behavioral consistency
-allows developers to quickly and easily understand the fundamentals of your
-classes and apply them confidently in new situations.</p>
-
-<p>One way to achieve this consistency is by defaulting to <a href="http://www.stuffandnonsense.co.uk/archives/css_specificity_wars.html">less-specific
-selectors</a>—write shorter selector chains, or if using Sass use minimal
-nesting. Less-specific selectors allow you to define general style patterns
-that are easier to reuse, override where necessary, and may be more performant.
-Qualifying an ID with any preceding selectors is a big <a href="http://en.wikipedia.org/wiki/Code_smell">code smell</a>.</p>
-
-<p>This means that we should tend to prefer classes over IDs and avoid
-<code>!important</code>. Strive for a flatter structure—the worst I’ve seen is a
-stylesheet whose structure directly mirrored the markup it was being applied
-to. Overly-qualified selectors are more susceptible to the whims of markup
-changes; the structure of our stylesheets should be as markup-agnostic as
-possible. Just keep things simple.</p>
-
-<p>Additionally, stylesheets and markup are two sides of the same coin—many
-styling problems are actually markup problems in disguise, and solving these
-types of problems on the CSS side means you now have two problems. Sometimes a
-little markup simplification can go a long way toward fixing a styling issue.</p>
-
-<p><a name="love-the-cascade"></a></p>
-
-<h2>6. Love the Cascade</h2>
-
-<p>Reset stylesheets, such as <a href="http://meyerweb.com/eric/tools/css/reset/">Eric Meyer’s Reset CSS</a>, can be good because
-they cancel out all default styles, putting all elements at a common
-starting-point.  However, it is important to define good base styles for
-typographical elements (e.g. <code>h1</code>, <code>h2</code>, <code>h3</code>, <code>ul</code>, <code>ol</code>) on top of the
-defaults so your site can have some consistency and you avoid repetition. When
-styling an element, ask yourself how many of those styles can be applied
-globally, and when writing a style that overrides another, ask yourself if your
-style override can be implemented more generally or moved up the chain.</p>
-
-<p>At Causes, we were using a reset stylesheet but had failed to set up some
-general, global styles. As a result, each time we wanted to use a new heading
-on a page, we had to write some styles to make it look like the headings on
-other types of pages. Not only did this slow development, but over time these
-styles became inconsistent as some were modified but others were forgotten,
-leaving us with a subtly fragmented and unmaintainable visual design. So, we
-refactored these styles into sane defaults that are applied sitewide discovered
-taht we could move faster and break fewer things.</p>
-
-<p>However, be careful when applying styles to generic container elements (e.g.
-<code>div</code>, <code>span</code>, <code>section</code>, <code>article</code>, <code>header</code>, <code>footer</code>, <code>nav</code>). For example,
-since the <code>header</code> element can be easily used in many different contexts, just
-like <code>div</code>s and <code>span</code>s, it might not be a good idea to give them all a certain
-background color or font size. This messes up a sane style reset, makes it
-difficult to use these general elements in new contexts, and ends up requiring
-more complicated overrides that lead to styles with confusing purposes and
-tangly interdependencies.</p>
-
-<p><a name="leave-a-comment"></a></p>
-
-<h2>7. Leave a Comment</h2>
-
-<p>Occasionally, it is not possible to write intention-expressing styles or invent
-class names that perfectly encapsulate an idea. These situations may easily
-result in unconventional practices or styles whose purposes are not immediately
-apparent. Although your code may seem incredibly obvious to you in the moment,
-that doesn’t mean it will make sense to you or someone else in the future. When
-I find myself in this situation, I leave a little comment to help explain my
-intention.</p>
-
-<p>For instance, although !important is best avoided because it violates the
-<a href="http://en.wikipedia.org/wiki/Principle_of_least_astonishment">principle of least astonishment</a> and is difficult to override, sometimes
-it is necessary such as when overriding an inline style that was added via
-JavaScript that you don’t have control over.  Whenever you use <code>!important</code>,
-leave a comment explaining why it is important.  This helps prevent a future,
-well-intentioned developer from coming along and “fixing” your code. Bonus
-points for leaving findable keywords in comments, which help people identify
-and remove unusual styles as they are no longer needed.</p>
-
-<p>I typically prefer same-line comments for this purpose because they more easily
-stay attached to the style they reference. Sass provides one-line comments:</p>
-
-<p><code>scss Using a comment in SCSS to explain reason for using !important
-width: auto !important; // override inline style from JS
-</code></p>
-
-<p>Standard CSS can still use block-style comments:</p>
-
-<p><code>css Using a comment in CSS to explain reason for using !important
-width: auto !important; /* override inline style from JS */
-</code></p>
-
-<p><a name="maintain-order"></a></p>
-
-<h2>8. Maintain Order</h2>
-
-<p>Similar to structuring our <abbr title="Document Object Model">DOM</abbr> with
-an eye toward hierarchy, the order of our selectors should represent some order
-of hierarchy or use. For instance, when using Sass at Causes, we follow this
-order:</p>
-
-<ol>
-<li>Properties (styling the element)</li>
-<li>Chained pseudo-selectors (styling states of the element)</li>
-<li>Chained selectors (styling variants of the element)</li>
-<li>Nested selectors (styling children of the element)</li>
-</ol>
-
-
-<p>This way, the styles that are most closely related to the element are
-vertically closer to the selector itself.</p>
-
-<p>``` scss Different types of selectors in a reasonable order
-.cool-link {
-  color: #009;</p>
-
-<p>  &amp;:focus,
-  &amp;:hover {</p>
-
-<pre><code>color: #00f;
-</code></pre>
-
-<p>  }</p>
-
-<p>  &amp;:active {</p>
-
-<pre><code>color: #006;
-</code></pre>
-
-<p>  }</p>
-
-<p>  &amp;.featured {</p>
-
-<pre><code>font-size: 2em;
-</code></pre>
-
-<p>  }</p>
-
-<p>  .metadata {</p>
-
-<pre><code>font-size: smaller;
-</code></pre>
-
-<p>  }
-}
-```</p>
-
-<p>We also alphabetize our properties. Although it may seem like lukewarm <abbr
-title="Obsessive-compulsive disorder">OCD</abbr>, alphabetizing helps us
-easily spot duplicates and assists developers in finding the properties they
-want to modify, thanks to a standard ordering. As a side-benefit, according to
-Google, <a href="https://developers.google.com/speed/docs/best-practices/payload#GzipCompression">properties that consistently appear in the same order will compress
-better when gzipped</a>.  Many modern code editors provide a sorting
-functionality, which makes alphabetizing styles a snap. (In Vim command mode I
-type <code>vi{:sort</code>.)</p>
-
-<p><a name="use-whitespace-effectively"></a></p>
-
-<h2>9. Use Whitespace Effectively</h2>
-
-<p>Whitespace allows us to more clearly see where one selector set ends and
-another begins. Indentation helps communicate the hierarchy. Standardize on
-these things across your codebase for maximum readability.</p>
-
-<p>You should be minifying and gzipping your CSS already, so there is no penalty
-for blank lines in your code.</p>
-
-<p>At Causes, we indent with two spaces, leave a blank line between selector sets
-of the same indentation level, and give each selector its own line. These
-coding styles not only improve readability of the styles on the filesystem,
-they also simplify diffs which eases code review and merge conflict resolution.</p>
-
-<p><a name="enforce-coding-style"></a></p>
-
-<h2>10. Enforce Coding Style</h2>
-
-<p>Maintaining a readable codebase can be challenging if not everyone on your team
-has fully bought into these ideas. To help these tactics permeate our team and
-persist throughout our codebase, we lean heavily on <strong>automated linting</strong> and
-<strong>code review</strong>.</p>
-
-<p>A linter serves as a low-cost first pass to catch most of the basic issues. At
-Causes, we are developing a <a href="https://github.com/causes/scss-lint">SCSS linter</a> (pull requests welcome) that runs
-as one of our <a href="https://github.com/causes/overcommit">Git pre-commit hooks</a>. We have trained this linter to
-enforce basic coding styles such as using one line per selector and
-alphabetizing properties. Also, a tool like <a href="http://editorconfig.org">EditorConfig</a> might be worth
-taking for a spin.</p>
-
-<p>For problems that are more nuanced and difficult to detect through static
-analysis, such as how well a set of styles expresses the intention of the
-implementation, code review serves as a valuable second pass. When reviewing
-stylesheet changes, I try to identify styles whose purpose is not immediately
-apparent and explain some small steps that can be taken to make it better.</p>
-
-<hr />
-
-<p>I hope that this article has informed your underlying philosophy and will
-assist you on your journey of writing beautiful code. There are plenty of other
-relevant areas that I did not touch upon, such as the structure and
-organization of your files, but I hope that what I did cover can be part of a
-strong and sustainable foundation for your stylesheets.</p>
-
-<p>CSS is like storytelling. There are often many ways to achieve a desired
-outcome; some are more coherent than others.</p>
 ]]></content>
   </entry>
   
