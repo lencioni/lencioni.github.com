@@ -56,8 +56,9 @@ class SassVariableEvaluator < Sass::Tree::Visitors::Base
 
   def visit_variable(node)
     @environment ||= Sass::Environment.new
-    @environment.set_local_var(node.name, node.expr)
-    [node.name, node.expr.perform(@environment)]
+    value = node.expr.perform(@environment)
+    @environment.set_local_var(node.name, value)
+    [node.name, value]
   end
 end
 ```
