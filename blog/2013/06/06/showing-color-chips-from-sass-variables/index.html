@@ -151,6 +151,7 @@ and values:</p>
 <span class='line-number'>9</span>
 <span class='line-number'>10</span>
 <span class='line-number'>11</span>
+<span class='line-number'>12</span>
 </pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">SassVariableEvaluator</span> <span class="o">&lt;</span> <span class="ss">Sass</span><span class="p">:</span><span class="ss">:Tree</span><span class="o">::</span><span class="ss">Visitors</span><span class="p">:</span><span class="ss">:Base</span>
 </span><span class='line'>  <span class="k">def</span> <span class="nf">visit_comment</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
 </span><span class='line'>    <span class="c1"># prevents empty arrays from being in the returned array</span>
@@ -158,8 +159,9 @@ and values:</p>
 </span><span class='line'>
 </span><span class='line'>  <span class="k">def</span> <span class="nf">visit_variable</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
 </span><span class='line'>    <span class="vi">@environment</span> <span class="o">||=</span> <span class="ss">Sass</span><span class="p">:</span><span class="ss">:Environment</span><span class="o">.</span><span class="n">new</span>
-</span><span class='line'>    <span class="vi">@environment</span><span class="o">.</span><span class="n">set_local_var</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">)</span>
-</span><span class='line'>    <span class="o">[</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="o">.</span><span class="n">perform</span><span class="p">(</span><span class="vi">@environment</span><span class="p">)</span><span class="o">]</span>
+</span><span class='line'>    <span class="n">value</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="o">.</span><span class="n">perform</span><span class="p">(</span><span class="vi">@environment</span><span class="p">)</span>
+</span><span class='line'>    <span class="vi">@environment</span><span class="o">.</span><span class="n">set_local_var</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</span><span class='line'>    <span class="o">[</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="o">]</span>
 </span><span class='line'>  <span class="k">end</span>
 </span><span class='line'><span class="k">end</span>
 </span></code></pre></td></tr></table></div></figure>

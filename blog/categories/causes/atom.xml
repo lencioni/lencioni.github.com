@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Causes | Joe Lencioni]]></title>
   <link href="http://joelencioni.com/blog/categories/causes/atom.xml" rel="self"/>
   <link href="http://joelencioni.com/"/>
-  <updated>2014-02-19T17:07:58-08:00</updated>
+  <updated>2014-06-18T12:02:39-07:00</updated>
   <id>http://joelencioni.com/</id>
   <author>
     <name><![CDATA[Joe Lencioni]]></name>
@@ -466,8 +466,9 @@ class SassVariableEvaluator &lt; Sass::Tree::Visitors::Base
 <p>  def visit_variable(node)</p>
 
 <pre><code>@environment ||= Sass::Environment.new
-@environment.set_local_var(node.name, node.expr)
-[node.name, node.expr.perform(@environment)]
+value = node.expr.perform(@environment)
+@environment.set_local_var(node.name, value)
+[node.name, value]
 </code></pre>
 
 <p>  end
