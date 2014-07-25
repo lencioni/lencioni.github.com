@@ -56,7 +56,11 @@ that are imported in manifests. We simply needed to add the Bower components
 path to that list:
 
 ```ruby config/application.rb
-config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components')
+class Application < Rails::Application
+  ...
+  config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components')
+  ...
+end
 ```
 
 ## Using Bower Assets
