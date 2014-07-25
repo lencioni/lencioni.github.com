@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Causes | Joe Lencioni]]></title>
   <link href="http://joelencioni.com/blog/categories/causes/atom.xml" rel="self"/>
   <link href="http://joelencioni.com/"/>
-  <updated>2014-06-18T12:02:39-07:00</updated>
+  <updated>2014-07-25T06:11:04-07:00</updated>
   <id>http://joelencioni.com/</id>
   <author>
     <name><![CDATA[Joe Lencioni]]></name>
@@ -142,7 +142,11 @@ that are imported in manifests. We simply needed to add the Bower components
 path to that list:</p>
 
 <p><code>ruby config/application.rb
-config.assets.paths &lt;&lt; Rails.root.join('vendor', 'assets', 'bower_components')
+class Application &lt; Rails::Application
+  ...
+  config.assets.paths &lt;&lt; Rails.root.join('vendor', 'assets', 'bower_components')
+  ...
+end
 </code></p>
 
 <h2>Using Bower Assets</h2>
