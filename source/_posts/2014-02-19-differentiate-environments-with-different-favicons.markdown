@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Differentiate Environments <em>with Different Favicons</em>"
+external-url: https://medium.com/brigade-engineering/favicon-face-off-9b69d2107cf9
 date: 2014-02-19 14:04
 comments: true
 sharing: false
